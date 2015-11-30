@@ -14,15 +14,6 @@ Install package, import and start adding what fields of your models in your data
    :alt: PonyWhoosh
 
 
-If you want with flask, you can a server and visit a route by default `/ponywhoosh` to the search engine. (you can change it if you need)
-
-
-.. image:: http://g.recordit.co/6MnvKNod6y.gif
-   :target: https://pypi.python.org/pypi/Flask-PonyWhoosh
-   :scale: 30%
-   :align: center 
-   :alt: PonyWhoosh
-
 Perform full-text searches on your database with Pony ORM powered by
 Whoosh and Flask. It can be easily pluggable in your flask app. Look at
 examples' folder.
