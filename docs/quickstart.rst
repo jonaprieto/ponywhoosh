@@ -253,7 +253,7 @@ use_dict:
 If you want that the  items look like a list rather than a dictionary. You can use the option use_dict: this option by default is set True. However if you choose false, results will look something like ('field', 'result')
   
 .. |model| image:: https://github.com/compiteing/ponywhoosh/blob/master/images/model.gif?raw=true
-   :target: https://pypi.python.org/pypi/Flask-PonyWhoosh
+   :target: https://pypi.python.org/pypi/PonyWhoosh
 
 .. |wildcards| image:: https://github.com/compiteing/flask-ponywhoosh/blob/master/images/addwildcards.gif?raw=true
    :target: https://pypi.python.org/pypi/Flask-PonyWhoosh
