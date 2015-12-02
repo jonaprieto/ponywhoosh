@@ -6,22 +6,25 @@ from pony import orm
 
 @orm.db_session
 def search(model, *arg, **kw):
-    """Summary
+    """Ponywhoosh function to perform searches on specific models. It takes up three arguments:
 
     Args:
-        model (TYPE): Description
-        *arg: Description
-        **kw: Description
+        model (TYPE): Where you want to search. 
+        *arg: The search string. 
+        **kw: Aditional options like : 
+            Include entity: To include the whole entity model from what you are searching. 
+            Add_wildcards: The option to perform inexact searches (By default is False). 
+            Something: It search first for exact terms but if it does not find anything it performs a search adding wildcards.
 
     Returns:
-        TYPE: Description
+        TYPE: A result object dictionary. 
     """
     return model._pw_index_.search(*arg, **kw)
 
 
 @orm.db_session
 def delete_field(model, *arg):
-    """Delete_field 
+    """ It deletes an specific field stored in the index.  
 
     Args:
         model (TYPE): Is the model from where you want to delete an specific field. 

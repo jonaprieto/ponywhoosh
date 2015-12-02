@@ -43,16 +43,16 @@ class Index(object):
         return self._fields
 
     def __init__(self, pw):
-        """Summary
+        """
 
         Args:
-            wh (PonyWhoosh): Initializes of index. 
+            pw (PonyWhoosh): Initializes of index. 
         """
         self._pw = pw
         self.debug = pw.debug
 
     def add_field(self, fieldname, fieldspec=whoosh_module_fields.TEXT):
-        """Add Field
+        """Add a field in the index of the model. 
 
         Args:
             fieldname (Text): This parameters register a new field in specified model.
@@ -65,7 +65,7 @@ class Index(object):
         return self._whoosh.schema
 
     def delete_field(self, field_name):
-        """This function deletes one determined field using the command MODEL.wh.delete_field(FIELD)
+        """This function deletes one determined field using the command MODEL.pw.delete_field(FIELD)
 
         Args:
             field_name (string): This argument let you delete some field for some model registered in the index. 

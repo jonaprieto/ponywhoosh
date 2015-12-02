@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>API &mdash; Python  documentation</title>
+    
+    <link rel="stylesheet" href="_static/flasky.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Python  documentation" href="index.html" />
+    <link rel="next" title="Changelog" href="changelog.html" />
+    <link rel="prev" title="Searching" href="quickstart.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="changelog.html" title="Changelog"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="quickstart.html" title="Searching"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Python  documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="api">
+<h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-ponywhoosh.core">
+<span id="ponywhoosh-core"></span><h2>PonyWhoosh Core<a class="headerlink" href="#module-ponywhoosh.core" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="ponywhoosh.core.PonyWhoosh">
+<em class="property">class </em><code class="descclassname">ponywhoosh.core.</code><code class="descname">PonyWhoosh</code><a class="headerlink" href="#ponywhoosh.core.PonyWhoosh" title="Permalink to this definition">¶</a></dt>
+<dd><p>A top level class that allows to register indexes.</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd><ul class="first last simple">
+<li>DEBUG (bool): Description</li>
+<li>indexes_path (str): this is the name where the folder of the indexes are going to be stored.</li>
+<li>route (TYPE): This config let you set the route for the url to run the html template.</li>
+<li>search_string_min_len (int): This item let you config the minimun string value possible to perform search.</li>
+<li>template_path (TYPE): Is the path where the folder of templates will be store.</li>
+<li>writer_timeout (int): Is the time when the writer should stop the searching.</li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="ponywhoosh.core.PonyWhoosh.create_index">
+<code class="descname">create_index</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#ponywhoosh.core.PonyWhoosh.create_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates and opens index folder for given index.</p>
+<p>If the index already exists, it just opens it, otherwise it creates it first.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>wh (TYPE): All the indexes stored.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ponywhoosh.core.PonyWhoosh.delete_indexes">
+<code class="descname">delete_indexes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ponywhoosh.core.PonyWhoosh.delete_indexes" title="Permalink to this definition">¶</a></dt>
+<dd><p>This set to empty all the indixes registered.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>TYPE: This empty all the indexes.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ponywhoosh.core.PonyWhoosh.indexes">
+<code class="descname">indexes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ponywhoosh.core.PonyWhoosh.indexes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Summary</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>TYPE: This returns all the indexes items stored.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ponywhoosh.core.PonyWhoosh.register_index">
+<code class="descname">register_index</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#ponywhoosh.core.PonyWhoosh.register_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registers a given index:</p>
+<ul class="simple">
+<li>Creates and opens an index for it (if it doesn&#8217;t exist yet)</li>
+<li>Sets some default values on it (unless they&#8217;re already set)</li>
+<li>Replaces query class of every index&#8217;s model by PonyWhoosheeQuery</li>
+</ul>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>wh (TYPE): Description</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ponywhoosh.core.PonyWhoosh.register_model">
+<code class="descname">register_model</code><span class="sig-paren">(</span><em>*fields</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#ponywhoosh.core.PonyWhoosh.register_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registers a single model for fulltext search. This basically creates
+a simple PonyWhooshIndex for the model and calls self.register_index on it.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><a href="#id1"><span class="problematic" id="id2">*</span></a>fields: all the fields indexed from the model. 
+<a href="#id3"><span class="problematic" id="id4">**</span></a>kw: The options for each field, sortedby, stored ...</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ponywhoosh.core.PonyWhoosh.search">
+<code class="descname">search</code><span class="sig-paren">(</span><em>*arg</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#ponywhoosh.core.PonyWhoosh.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search function. This allows you to search using the following arguments.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><a href="#id5"><span class="problematic" id="id6">*</span></a>arg: The search string. 
+<a href="#id7"><span class="problematic" id="id8">**</span></a>kw: The options available for searching: include_entity, add_wildcards, something, 
+fields, except_fields, etc. These options were described previously.</dd>
+<dt>Returns:</dt>
+<dd>TYPE: Description</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-ponywhoosh.utils">
+<span id="utils-methods"></span><h2>Utils Methods<a class="headerlink" href="#module-ponywhoosh.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="ponywhoosh.utils.delete_field">
+<code class="descclassname">ponywhoosh.utils.</code><code class="descname">delete_field</code><span class="sig-paren">(</span><em>model</em>, <em>*arg</em><span class="sig-paren">)</span><a class="headerlink" href="#ponywhoosh.utils.delete_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>It deletes an specific field stored in the index.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>model (TYPE): Is the model from where you want to delete an specific field. 
+<a href="#id9"><span class="problematic" id="id10">*</span></a>arg: Fiedls.</dd>
+<dt>Returns:</dt>
+<dd>TYPE: model without the desired field.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ponywhoosh.utils.full_search">
+<code class="descclassname">ponywhoosh.utils.</code><code class="descname">full_search</code><span class="sig-paren">(</span><em>pw</em>, <em>*arg</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#ponywhoosh.utils.full_search" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function search in every model registered. And portrays the result in a dictionary where the keys are the models.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>pw (PonyWhoosh): This is where all the indexes are stored. 
+<a href="#id11"><span class="problematic" id="id12">*</span></a>arg: The search string. 
+<a href="#id13"><span class="problematic" id="id14">**</span></a>kw: The options available for a single search wildcards, something, fields, models, etc.</dd>
+<dt>Returns:</dt>
+<dd>TYPE: Dictionary with all the the results for the models.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ponywhoosh.utils.search">
+<code class="descclassname">ponywhoosh.utils.</code><code class="descname">search</code><span class="sig-paren">(</span><em>model</em>, <em>*arg</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#ponywhoosh.utils.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ponywhoosh function to perform searches on specific models. It takes up three arguments:</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">model (TYPE): Where you want to search. 
+<a href="#id15"><span class="problematic" id="id16">*</span></a>arg: The search string. 
+<a href="#id17"><span class="problematic" id="id18">**</span></a>kw: Aditional options like :</p>
+<blockquote class="last">
+<div>Include entity: To include the whole entity model from what you are searching. 
+Add_wildcards: The option to perform inexact searches (By default is False). 
+Something: It search first for exact terms but if it does not find anything it performs a search adding wildcards.</div></blockquote>
+</dd>
+<dt>Returns:</dt>
+<dd>TYPE: A result object dictionary.</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><p class="logo"><a href="index.html">
+  <img class="logo" src="_static/logo.png" alt="Logo"
+    style="margin-left: -5px"/>
+</a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">API</a><ul>
+<li><a class="reference internal" href="#module-ponywhoosh.core">PonyWhoosh Core</a></li>
+<li><a class="reference internal" href="#module-ponywhoosh.utils">Utils Methods</a></li>
+</ul>
+</li>
+</ul>
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="quickstart.html" title="previous chapter">Searching</a></li>
+      <li>Next: <a href="changelog.html" title="next chapter">Changelog</a></li>
+  </ul></li>
+</ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright 2015, Jonathan S. Prieto C. & Ivan Felipe Rodriguez.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  
+  </body>
+</html>
