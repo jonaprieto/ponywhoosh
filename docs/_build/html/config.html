@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Getting Started: &mdash; Python  documentation</title>
+    <title>Getting Started &mdash; Python  documentation</title>
     
     <link rel="stylesheet" href="_static/flasky.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -57,7 +57,7 @@
           <div class="body" role="main">
             
   <div class="section" id="getting-started">
-<span id="config"></span><h1>Getting Started:<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<span id="config"></span><h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <div class="code python highlight-python"><div class="highlight"><pre>pip install ponywhoosh
@@ -68,12 +68,11 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
-<p>Initialize the
-Ponywhoosh and set up the general configurations.</p>
+<div class="section" id="ponywhoosh-configuration">
+<h2>PonyWhoosh Configuration<a class="headerlink" href="#ponywhoosh-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Initialize the <code class="docutils literal"><span class="pre">Ponywhoosh</span></code> object and if you want, set up some general configurations.</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">ponywhoosh</span> <span class="kn">import</span> <span class="n">Ponywhoosh</span>
-<span class="n">pw</span> <span class="o">=</span> <span class="n">Ponywhoosh</span><span class="p">()</span>
+<span class="n">pw</span> <span class="o">=</span> <span class="n">PonyWhoosh</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="n">pw</span><span class="o">.</span><span class="n">search_string_min_len</span><span class="o">=</span> <span class="mi">3</span>
@@ -81,18 +80,20 @@ Ponywhoosh and set up the general configurations.</p>
 <span class="n">pw</span><span class="o">.</span><span class="n">writer_timeout</span><span class="o">=</span> <span class="mi">2</span>
 </pre></div>
 </div>
-<p>These configurations set up the default folder to save the Indexes, if you want to activate debug, the minimun lenght of the string in the query, the time out (stop searching if is taking so much).</p>
+<p>These configurations set up the default folder to save the <cite>Indexes</cite>, if you want to activate debug, the minimun length of the string in the query, the time out (stop searching if is taking so much).</p>
 </div>
 <div class="section" id="database-configuration">
 <h2>Database Configuration<a class="headerlink" href="#database-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Import <code class="docutils literal"><span class="pre">ponywhoosh</span></code> in your source code where you have the database entities definitions.</p>
 <p><a class="reference external" href="https://pypi.python.org/pypi/Flask-PonyWhoosh"><img alt="database" src="https://github.com/compiteing/flask-ponywhoosh/blob/master/images/databaseconfig.gif?raw=true" /></a></p>
-<p>Import the ponywhoosh library in the file you have the database entities.</p>
+<p>As we show above, the lines will be look like these:</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">PonyWhoosh</span> <span class="kn">import</span> <span class="n">PonyWhoosh</span>
 <span class="n">pw</span> <span class="o">=</span> <span class="n">PonyWhoosh</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>For each entity wrap it up with the decorator
-<code class="docutils literal"><span class="pre">&#64;pw.register_model(*args,**kw)</span></code>. Specifying what attributes would be searcheables. For example:</p>
+<code class="docutils literal"><span class="pre">&#64;pw.register_model(...)</span></code>. Specifying what attributes would be searcheables.</p>
+<p>For example:</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="nd">@pw.register_model</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span><span class="s">&#39;age&#39;</span><span class="p">,</span> <span class="n">sortable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>  <span class="n">stored</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Entity</span><span class="p">):</span>
     <span class="n">_table_</span> <span class="o">=</span> <span class="s">&#39;User&#39;</span>
@@ -104,13 +105,7 @@ Ponywhoosh and set up the general configurations.</p>
     <span class="n">attributes</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="s">&quot;Attributes&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>As you could see in the previous example, you should declare as strings these fields where you want whoosh to store the searcheables (<code class="docutils literal"><span class="pre">name</span></code>, <code class="docutils literal"><span class="pre">age</span></code>, etc.). All the parameters from whoosh are available, You just have to listed separating them with commas: sortable, stored, scored, etc. Refer to whoosh documentation for
-further explanations on the application of these parameters.</p>
-</div>
-<div class="section" id="searching-for-the-first-time">
-<h2>Searching: for the first  time<a class="headerlink" href="#searching-for-the-first-time" title="Permalink to this headline">¶</a></h2>
-<p>In python view  (we are using bpython by the way) you can search using the &#8220;search()&#8221; function. Running our example, let us suppose  we are looking for the word &#8220;applied&#8221; in the model Department. After we run our example.py , we should follow the following steps:</p>
-<p><a class="reference external" href="https://pypi.python.org/pypi/PonyWhoosh"><img alt="first" src="https://github.com/compiteing/ponywhoosh/blob/master/images/example.gif?raw=true" /></a></p>
+<p>As you could see in the previous example, you should declare as <cite>strings</cite> these fields where you want search in the future and make them searcheables (<code class="docutils literal"><span class="pre">name</span></code>, <code class="docutils literal"><span class="pre">age</span></code>, etc.). All the parameters from <code class="docutils literal"><span class="pre">whoosh</span></code> are available, You just have to listed separating them with commas: <code class="docutils literal"><span class="pre">sortable</span></code>, <code class="docutils literal"><span class="pre">stored</span></code>, <code class="docutils literal"><span class="pre">scored</span></code>, etc. Refer to <code class="docutils literal"><span class="pre">whoosh</span></code> documentation for further explanations on the application of these parameters.</p>
 </div>
 </div>
 
@@ -125,11 +120,10 @@ further explanations on the application of these parameters.</p>
 </a></p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Getting Started:</a><ul>
+<li><a class="reference internal" href="#">Getting Started</a><ul>
 <li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#ponywhoosh-configuration">PonyWhoosh Configuration</a></li>
 <li><a class="reference internal" href="#database-configuration">Database Configuration</a></li>
-<li><a class="reference internal" href="#searching-for-the-first-time">Searching: for the first  time</a></li>
 </ul>
 </li>
 </ul>

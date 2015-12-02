@@ -1,22 +1,22 @@
 .. _example:
 
-Example:
-========
+A simple example
+================
 
 |first|
 
-We have used one of the available databases example from ponyorm, the universities. To run de example, you should go to the console and do:
+We have used one of the available databases example from ``PonyORM``, the `universities`. To run de example, you should go to the console and do:
 
 .. code:: bash
 
-	bpython 
+	$ python 
 
-Then import the example and using  pw.search() you will be able to perform a simple search. 
+Then import the example and using  ``pw.search("smith")`` you will be able to perform a simple search over the entire database.
 
 .. code:: python
 	>>> from example import *
 	>>> populate_database()
-	>>> pw.search(smith)
+	>>> pw.search("smith")
 	>>> {'cant_results': 1,
  		'matched_terms': {'name': ['smith']},
  		'results': {'Student': {'items': [{'docnum': 1L,
@@ -24,6 +24,9 @@ Then import the example and using  pw.search() you will be able to perform a sim
                                     'score': 2.252762968495368}],
                          'matched_terms': {'name': ['smith']}}},
  		'runtime': 0.001795053482055664}
+
+Here is the source code of the example file.
+
 
 .. code:: python
 
