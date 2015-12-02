@@ -8,7 +8,14 @@ After you have registered the indexes where you want to store the searcheables. 
 
 .. code :: bash
   
-  $ python app.py shell
+  $ python 
+
+.. code :: python
+    >>> from example import *
+    >>> populate_database()
+    >>> pw.search("Jing")
+
+
 
 However if you'd rather  prefer to "see" the results, you may access to the route '/ponywhoosh/' available when you run the server (available with flask based apps). 
 
@@ -25,40 +32,36 @@ something like the following code over a view function, or even from the shell,
 
 .. code:: python
 
-  >>> from app import *
-  >>> User._pw_.search("felipe")
-  {'cant_results': 2,
+  >>> from example import *
+  >>> Departament._pw_index.search("applied",include_entity=True)
+  {'cant_results': 1,
    'facet_names': [],
-   'matched_terms': {'name': ['felipe']},
-   'results': [{'docnum': 4L,
-                'rank': 0,
-                'pk': 5,
-                'score': 2.540445040947149},
-               {'docnum': 11L,
-                'rank': 1,
-                'pk': 12,
-                'score': 2.540445040947149}],
-   'runtime': 0.001981973648071289}
+   'matched_terms': {'name': ['applied']},
+   'results': [{'docnum': 2L,
+                'entity': {'name': u'Department of Applied Physics',
+                           'number': 3},
+                'model': 'Department',
+                'pk': (u'3',),
+                'score': 1.4054651081081644}],
+   'runtime': 0.0007810592651367188}
 
 If you would prefer, you may use the function ``search()``,  which will run the same function but is quite more handy when writing
 
 .. code:: python
 
     >>> from ponywhoosh import search
-    >>> from app import *
-    >>> search(User,"felipe") 
-    {'cant_results': 2,
+    >>> from example import *
+    >>> search(Department,"applied", include_entity=True) 
+    {'cant_results': 1,
      'facet_names': [],
-     'matched_terms': {'name': ['felipe']},
-     'results': [{'docnum': 4L,
-                  'rank': 0,
-                  'pk' : 5,
-                  'score': 2.540445040947149},
-                 {'docnum': 11L,
-                  'rank': 1,
-                  'pk' : 12,
-                  'score': 2.540445040947149}],
-     'runtime': 0.001981973648071289}
+     'matched_terms': {'name': ['applied']},
+     'results': [{'docnum': 2L,
+                  'entity': {'name': u'Department of Applied Physics',
+                             'number': 3},
+                  'model': 'Department',
+                  'pk': (u'3',),
+                  'score': 1.4054651081081644}],
+     'runtime': 0.0007810592651367188}
 
 Search():
 *********
@@ -83,7 +86,7 @@ the model. (Refer to the *Usage* section above)
 
 .. code:: python
 
-    >>> from app import *
+    >>> from example import *
     >>> from ponywhoosh import search
     >>> search(User,"harol", sortedby="age")
     {'cant_results': 2,
@@ -101,7 +104,7 @@ the model. (Refer to the *Usage* section above)
 
 In synthesis, the options available are: ``sortedby``, ``scored``, ``limit``, ``optimize``, ``reverse``. Which are widely described in the whoosh documentation.
 
-The Attribute ``_pw_.``
+The Attribute ``_pw_index.``
 ******************************
 
 There are some special features avalaible for models from the database. You just have to call the model ``PonyModel._pw_.``: 
