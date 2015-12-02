@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Python  documentation" href="index.html" />
     <link rel="next" title="Changelog" href="changelog.html" />
-    <link rel="prev" title="Searching" href="quickstart.html" />
+    <link rel="prev" title="Example:" href="example.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
@@ -45,7 +45,7 @@
           <a href="changelog.html" title="Changelog"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="quickstart.html" title="Searching"
+          <a href="example.html" title="Example:"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Python  documentation</a> &raquo;</li> 
       </ul>
@@ -63,47 +63,37 @@
 <dl class="class">
 <dt id="ponywhoosh.core.PonyWhoosh">
 <em class="property">class </em><code class="descclassname">ponywhoosh.core.</code><code class="descname">PonyWhoosh</code><a class="headerlink" href="#ponywhoosh.core.PonyWhoosh" title="Permalink to this definition">¶</a></dt>
-<dd><p>A top level class that allows to register indexes.</p>
+<dd><p>A top level class that allows to register indexes and performing searches.</p>
 <dl class="docutils">
 <dt>Attributes:</dt>
 <dd><ul class="first last simple">
-<li>DEBUG (bool): Description</li>
+<li>debug (bool): print some messages useful for debugging</li>
 <li>indexes_path (str): this is the name where the folder of the indexes are going to be stored.</li>
-<li>route (TYPE): This config let you set the route for the url to run the html template.</li>
-<li>search_string_min_len (int): This item let you config the minimun string value possible to perform search.</li>
-<li>template_path (TYPE): Is the path where the folder of templates will be store.</li>
-<li>writer_timeout (int): Is the time when the writer should stop the searching.</li>
+<li>search_string_min_len (int): let you config the minimun string value possible to perform search.</li>
+<li>writer_timeout (int): a time constraint for running a search process.</li>
 </ul>
 </dd>
 </dl>
 <dl class="method">
 <dt id="ponywhoosh.core.PonyWhoosh.create_index">
 <code class="descname">create_index</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#ponywhoosh.core.PonyWhoosh.create_index" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates and opens index folder for given index.</p>
-<p>If the index already exists, it just opens it, otherwise it creates it first.</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>wh (TYPE): All the indexes stored.</dd>
-</dl>
+<dd><p>Creates and opens index folder for given index.
+If the index already exists, it just opens it, otherwise it creates it first.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ponywhoosh.core.PonyWhoosh.delete_indexes">
 <code class="descname">delete_indexes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ponywhoosh.core.PonyWhoosh.delete_indexes" title="Permalink to this definition">¶</a></dt>
-<dd><p>This set to empty all the indixes registered.</p>
-<dl class="docutils">
-<dt>Returns:</dt>
-<dd>TYPE: This empty all the indexes.</dd>
-</dl>
+<dd><p>This set to empty all the indexes registered.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ponywhoosh.core.PonyWhoosh.indexes">
 <code class="descname">indexes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ponywhoosh.core.PonyWhoosh.indexes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Summary</p>
+<dd><p>Access a list of the current indexes registered</p>
 <dl class="docutils">
 <dt>Returns:</dt>
-<dd>TYPE: This returns all the indexes items stored.</dd>
+<dd>(list): the indexes stored.</dd>
 </dl>
 </dd></dl>
 
@@ -114,11 +104,10 @@
 <ul class="simple">
 <li>Creates and opens an index for it (if it doesn&#8217;t exist yet)</li>
 <li>Sets some default values on it (unless they&#8217;re already set)</li>
-<li>Replaces query class of every index&#8217;s model by PonyWhoosheeQuery</li>
 </ul>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd>wh (TYPE): Description</dd>
+<dd>index (PonyWhoosh.Index): An instance of PonyWhoosh.Index class</dd>
 </dl>
 </dd></dl>
 
@@ -126,7 +115,7 @@
 <dt id="ponywhoosh.core.PonyWhoosh.register_model">
 <code class="descname">register_model</code><span class="sig-paren">(</span><em>*fields</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#ponywhoosh.core.PonyWhoosh.register_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Registers a single model for fulltext search. This basically creates
-a simple PonyWhooshIndex for the model and calls self.register_index on it.</p>
+a simple PonyWhoosh.Index for the model and calls self.register_index on it.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><a href="#id1"><span class="problematic" id="id2">*</span></a>fields: all the fields indexed from the model. 
@@ -137,14 +126,23 @@ a simple PonyWhooshIndex for the model and calls self.register_index on it.</p>
 <dl class="method">
 <dt id="ponywhoosh.core.PonyWhoosh.search">
 <code class="descname">search</code><span class="sig-paren">(</span><em>*arg</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#ponywhoosh.core.PonyWhoosh.search" title="Permalink to this definition">¶</a></dt>
-<dd><p>Search function. This allows you to search using the following arguments.</p>
+<dd><p>A full search function. This allows you to search expression
+using the following arguments.</p>
 <dl class="docutils">
-<dt>Args:</dt>
-<dd><a href="#id5"><span class="problematic" id="id6">*</span></a>arg: The search string. 
-<a href="#id7"><span class="problematic" id="id8">**</span></a>kw: The options available for searching: include_entity, add_wildcards, something, 
-fields, except_fields, etc. These options were described previously.</dd>
+<dt>Arg:</dt>
+<dd>query (str): The search string expression.</dd>
+<dt>Optional Args:</dt>
+<dd><ul class="first last simple">
+<li>include_entity (bool): include in each result the entity values associated of the fields stored.</li>
+<li>add_wildcards (bool): set it if you want to consider matches that have prefix or suffixes the query.</li>
+<li>something (bool): set <cite>add_willcards</cite> in case of none results for the query.</li>
+<li>fields (list): specified the fields names that you want to consider.</li>
+<li>except_fields (list): specified the fields names to not consider in the search.</li>
+<li>models (list): a list of name of model to search or even the models from the database.</li>
+</ul>
+</dd>
 <dt>Returns:</dt>
-<dd>TYPE: Description</dd>
+<dd>(dict): A python dictionary with the results.</dd>
 </dl>
 </dd></dl>
 
@@ -159,10 +157,10 @@ fields, except_fields, etc. These options were described previously.</dd>
 <dd><p>It deletes an specific field stored in the index.</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd>model (TYPE): Is the model from where you want to delete an specific field. 
-<a href="#id9"><span class="problematic" id="id10">*</span></a>arg: Fiedls.</dd>
+<dd>model (Model): The model from where you want to delete the specific field(s). 
+<a href="#id5"><span class="problematic" id="id6">*</span></a>arg: field(s) of the model specified that will be removed.</dd>
 <dt>Returns:</dt>
-<dd>TYPE: model without the desired field.</dd>
+<dd>(list): a schemma of the model with the fields removed.</dd>
 </dl>
 </dd></dl>
 
@@ -172,11 +170,20 @@ fields, except_fields, etc. These options were described previously.</dd>
 <dd><p>This function search in every model registered. And portrays the result in a dictionary where the keys are the models.</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd>pw (PonyWhoosh): This is where all the indexes are stored. 
-<a href="#id11"><span class="problematic" id="id12">*</span></a>arg: The search string. 
-<a href="#id13"><span class="problematic" id="id14">**</span></a>kw: The options available for a single search wildcards, something, fields, models, etc.</dd>
+<dd>pw (PonyWhoosh): This is where all the indexes are stored. An instance of PonyWhoosh class.
+query (str): the string expression to search.</dd>
+<dt>Optional Args:</dt>
+<dd><ul class="first last simple">
+<li>include_entity (bool): include in each result the entity values associated of the fields stored.</li>
+<li>add_wildcards (bool): set it if you want to consider matches that have prefix or suffixes the query.</li>
+<li>something (bool): set <cite>add_willcards</cite> in case of none results for the query.</li>
+<li>fields (list): specified the fields names that you want to consider.</li>
+<li>except_fields (list): specified the fields names to not consider in the search.</li>
+<li>models (list): a list of name of model to search or even the models from the database.</li>
+</ul>
+</dd>
 <dt>Returns:</dt>
-<dd>TYPE: Dictionary with all the the results for the models.</dd>
+<dd>(dict): A python dictionary with the results for the model.</dd>
 </dl>
 </dd></dl>
 
@@ -186,16 +193,20 @@ fields, except_fields, etc. These options were described previously.</dd>
 <dd><p>Ponywhoosh function to perform searches on specific models. It takes up three arguments:</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd><p class="first">model (TYPE): Where you want to search. 
-<a href="#id15"><span class="problematic" id="id16">*</span></a>arg: The search string. 
-<a href="#id17"><span class="problematic" id="id18">**</span></a>kw: Aditional options like :</p>
-<blockquote class="last">
-<div>Include entity: To include the whole entity model from what you are searching. 
-Add_wildcards: The option to perform inexact searches (By default is False). 
-Something: It search first for exact terms but if it does not find anything it performs a search adding wildcards.</div></blockquote>
+<dd>model (Model) or (str): Where you want to search, in which table. 
+query (str): the string expression to search.</dd>
+<dt>Optional Args:</dt>
+<dd><ul class="first last simple">
+<li>include_entity (bool): include in each result the entity values associated of the fields stored.</li>
+<li>add_wildcards (bool): set it if you want to consider matches that have prefix or suffixes the query.</li>
+<li>something (bool): set <cite>add_willcards</cite> in case of none results for the query.</li>
+<li>fields (list): specified the fields names that you want to consider.</li>
+<li>except_fields (list): specified the fields names to not consider in the search.</li>
+<li>models (list): a list of name of model to search or even the models from the database.</li>
+</ul>
 </dd>
 <dt>Returns:</dt>
-<dd>TYPE: A result object dictionary.</dd>
+<dd>(dict): A python dictionary with the results for the model.</dd>
 </dl>
 </dd></dl>
 
@@ -222,7 +233,7 @@ Something: It search first for exact terms but if it does not find anything it p
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="quickstart.html" title="previous chapter">Searching</a></li>
+      <li>Previous: <a href="example.html" title="previous chapter">Example:</a></li>
       <li>Next: <a href="changelog.html" title="next chapter">Changelog</a></li>
   </ul></li>
 </ul>
