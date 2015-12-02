@@ -31,5 +31,6 @@ Source code and issue tracking at http://github.com/compiteing/ponywhoosh.
 .. |PyPI Package monthly downloads| image:: http://img.shields.io/pypi/dm/ponywhoosh.png?style=flat
    :target: https://pypi.python.org/pypi/ponywhoosh
 .. |Test| image:: https://travis-ci.org/piperod/ponywhoosh.svg?branch=master
-    :target: https://travis-ci.org/compiteing/ponywhoosh   
+   :target: https://travis-ci.org/piperod/ponywhoosh
+
 

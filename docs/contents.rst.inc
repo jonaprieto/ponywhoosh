@@ -10,6 +10,7 @@ User's Guide
    
    config
    quickstart
+   example
    api
    changelog
    
