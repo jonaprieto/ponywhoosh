@@ -44,4 +44,5 @@ nosetests.xml
 *.sqlite
 .idea
 venv/
+ponyindexes/
 docs/_build/html/html.zip
