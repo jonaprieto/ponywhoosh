@@ -71,17 +71,13 @@ class Index(object):
             field_name (string): This argument let you delete some field for some model registered in the index. 
 
         Returns:
-            INDEX: The new schema after deleted is returned. 
+            (WhooshSchema): The new schema after deleted is returned. 
         """
         self._whoosh.remove_field(field_name.strip())
         return self._whoosh.schema
 
     def delete_documents(self):
-        """
-        Deletes all the  documents using the  pk associated to them. 
-
-        Returns:
-            The new index with the document deleted. 
+        """Deletes all the  documents using the  pk associated to them. 
         """
         pk = unicode(self._primary_key)
         for doc in self._whoosh.searcher().documents():
@@ -92,7 +88,6 @@ class Index(object):
     def optimize(self):
         """ The index is reindexed, optimizing the run time of searchings and space used. Everytime a document is added a new file would be created, but optimizing would reduce all to just one. 
 
-
         Returns:
             TYPE: Index optimized. 
         """
@@ -102,7 +97,7 @@ class Index(object):
         """This method counts all the documents contained in  a certain registered model. 
 
         Returns:
-            Int: A number with all the documents a model have. 
+            (int): how many documents are indexed of the model index. 
         """
         return self._whoosh.doc_count()
 
@@ -112,9 +107,6 @@ class Index(object):
         This method allow you to charge documents you already have 
             in your database. In this way an Index would be created according to 
             the model and fields registered. 
-
-        Returns:
-            An index updated with new documents.  
         """
         doc_count = self._whoosh.doc_count()
         objs = orm.count(e for e in self._model)
@@ -136,9 +128,7 @@ class Index(object):
 
     def update_documents(self):
         """It deletes all the documents in the index and charge them again. 
-
-        Returns:
-            Index: with updated documents"""
+        """
         self.delete_documents()
         self.charge_documents()
 
@@ -149,6 +139,7 @@ class Index(object):
 
         Args:
             search_string (str): This is what you are looking for in your pony database. 
+        Optional Args: 
             opt: The following opts are available for the search function: 
             * add_wildcars(bool): This opt allows you to search no literal queries. 
             * fields: This opt let you filter your search result on some model by the fields you want to search.
@@ -158,7 +149,7 @@ class Index(object):
             We implement this because we wanted that the  first field registered of the model would be the most important one. 
             As was explained in the IndexView section. 
         Returns:
-            dict: Description
+            (dict): A python dictionary with the results for the model. 
         """
 
         prepped_string = self.prep_search_string(
@@ -245,7 +236,9 @@ class Index(object):
 
         Args:
             search_string (str): it prepares the search string and see if the lenght is correct. 
-            add_wildcards (bool, optional): It runs a query for inexact queries. 
+        
+        Optional Args:
+            add_wildcards (bool): It runs a query for inexact queries. 
 
         Raises:
             ValueError: When the search string does not have the appropriate lenght. This lenght 
@@ -266,15 +259,6 @@ class Index(object):
         return s
 
     def to_bool(self, v):
-        """to bool. 
-
-
-        Args:
-            v (TYPE): This takes some of the commonly used bool declaratories like, True, true, v, t , y or yes and converted in to just one. Avoiding int . 
-
-        Returns:
-            TYPE: It returns a bool field. 
-        """
         if isinstance(v, bool):
             return v
         if isinstance(v, unicode) or isinstance(v, str):
@@ -284,15 +268,6 @@ class Index(object):
         return False
 
     def parse_opts_searcher(self, opts, parameters):
-        """parse_opts_searcher
-
-        Args:
-            opts (Args): it takes the opts saved on the search object 
-            parameters (TYPE): Takes care that the opts are actually parameters available for the search. 
-
-        Returns:
-            TYPE: Description
-        """
         assert isinstance(opts, dict)
         res = {}
         for k, v in opts.items():

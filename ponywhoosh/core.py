@@ -24,15 +24,13 @@ __all__ = ['PonyWhoosh']
 
 class PonyWhoosh(object):
 
-    """A top level class that allows to register indexes.
+    """A top level class that allows to register indexes and performing searches.
 
     Attributes:
-        * DEBUG (bool): Description
+        * debug (bool): print some messages useful for debugging
         * indexes_path (str): this is the name where the folder of the indexes are going to be stored.
-        * route (TYPE): This config let you set the route for the url to run the html template.
-        * search_string_min_len (int): This item let you config the minimun string value possible to perform search.
-        * template_path (TYPE): Is the path where the folder of templates will be store.
-        * writer_timeout (int): Is the time when the writer should stop the searching.
+        * search_string_min_len (int): let you config the minimun string value possible to perform search.
+        * writer_timeout (int): a time constraint for running a search process.
     """
 
     indexes_path = 'indexes'
@@ -49,28 +47,21 @@ class PonyWhoosh(object):
 
 
     def delete_indexes(self):
-        """This set to empty all the indixes registered.
-
-        Returns:
-            TYPE: This empty all the indexes.
+        """This set to empty all the indexes registered.
         """
         self._indexes = {}
 
     def indexes(self):
-        """Summary
+        """Access a list of the current indexes registered
 
         Returns:
-            TYPE: This returns all the indexes items stored.
+            (list): the indexes stored.
         """
         return [v for k, v in self._indexes.items()]
 
     def create_index(self, index):
         """Creates and opens index folder for given index.
-
         If the index already exists, it just opens it, otherwise it creates it first.
-
-        Args:
-            wh (TYPE): All the indexes stored.
         """
 
         index._path = os.path.join(self.indexes_path, index._name)
@@ -83,15 +74,13 @@ class PonyWhoosh(object):
         index._whoosh = _whoosh
 
     def register_index(self, index):
-        """
-        Registers a given index:
+        """Registers a given index:
 
         * Creates and opens an index for it (if it doesn't exist yet)
         * Sets some default values on it (unless they're already set)
-        * Replaces query class of every index's model by PonyWhoosheeQuery
 
         Args:
-            wh (TYPE): Description
+            index (PonyWhoosh.Index): An instance of PonyWhoosh.Index class
         """
 
         self._indexes[index._name] = index
@@ -100,7 +89,7 @@ class PonyWhoosh(object):
 
     def register_model(self, *fields, **kw):
         """Registers a single model for fulltext search. This basically creates
-        a simple PonyWhooshIndex for the model and calls self.register_index on it.
+        a simple PonyWhoosh.Index for the model and calls self.register_index on it.
 
         Args:
             *fields: all the fields indexed from the model. 
@@ -114,13 +103,13 @@ class PonyWhoosh(object):
 
         def inner(model):
             """This look for the types of each field registered in the index, whether if it is 
-            Numeric, datetime or Boolean. 
+            Numeric, datetime, boolean or just text. 
 
             Args:
-                model (TYPE): Description
+                model (PonyORM.Entity): A model defined on the database with PonyORM
 
             Returns:
-                TYPE: Description
+                model (PonyORM.Entity): A model modified for handle the appropriate search methods.
             """
 
             index._name = model._table_
@@ -177,14 +166,15 @@ class PonyWhoosh(object):
             self.register_index(index)
 
             def _middle_save_(obj, status):
-                """Summary
+                """A middle-in-middle method to intercept CRUD operations from PonyORM
+                over the current object model to update the appropriate whoosh index.
 
                 Args:
-                    obj (TYPE): Description
-                    status (TYPE): Description
+                    obj (EntityInstance): An instance of a current model.
+                    status (str): Type of transaction on the database. A CRUD operation.
 
                 Returns:
-                    TYPE: Description
+                    obj (EntityInstance): The same object as the input.
                 """
                 writer = index._whoosh.writer(timeout=self.writer_timeout)
 
@@ -217,15 +207,22 @@ class PonyWhoosh(object):
 
     @orm.db_session
     def search(self, *arg, **kw):
-        """Search function. This allows you to search using the following arguments.
+        """A full search function. This allows you to search expression
+        using the following arguments.
 
-        Args:
-            *arg: The search string. 
-            **kw: The options available for searching: include_entity, add_wildcards, something, 
-            fields, except_fields, etc. These options were described previously. 
+        Arg:
+            query (str): The search string expression.
+
+        Optional Args:
+            - include_entity (bool): include in each result the entity values associated of the fields stored. 
+            - add_wildcards (bool): set it if you want to consider matches that have prefix or suffixes the query.
+            - something (bool): set `add_willcards` in case of none results for the query.
+            - fields (list): specified the fields names that you want to consider.
+            - except_fields (list): specified the fields names to not consider in the search.
+            - models (list): a list of name of model to search or even the models from the database.
 
         Returns:
-            TYPE: Description
+            (dict): A python dictionary with the results.
         """
         output = {
             'runtime': 0,

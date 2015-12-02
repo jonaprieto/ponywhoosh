@@ -9,15 +9,19 @@ def search(model, *arg, **kw):
     """Ponywhoosh function to perform searches on specific models. It takes up three arguments:
 
     Args:
-        model (TYPE): Where you want to search. 
-        *arg: The search string. 
-        **kw: Aditional options like : 
-            Include entity: To include the whole entity model from what you are searching. 
-            Add_wildcards: The option to perform inexact searches (By default is False). 
-            Something: It search first for exact terms but if it does not find anything it performs a search adding wildcards.
+        model (Model) or (str): Where you want to search, in which table. 
+        query (str): the string expression to search.
+    
+    Optional Args:
+        - include_entity (bool): include in each result the entity values associated of the fields stored. 
+        - add_wildcards (bool): set it if you want to consider matches that have prefix or suffixes the query.
+        - something (bool): set `add_willcards` in case of none results for the query.
+        - fields (list): specified the fields names that you want to consider.
+        - except_fields (list): specified the fields names to not consider in the search.
+        - models (list): a list of name of model to search or even the models from the database.
 
     Returns:
-        TYPE: A result object dictionary. 
+        (dict): A python dictionary with the results for the model. 
     """
     return model._pw_index_.search(*arg, **kw)
 
@@ -27,11 +31,11 @@ def delete_field(model, *arg):
     """ It deletes an specific field stored in the index.  
 
     Args:
-        model (TYPE): Is the model from where you want to delete an specific field. 
-        *arg: Fiedls. 
+        model (Model): The model from where you want to delete the specific field(s). 
+        *arg: field(s) of the model specified that will be removed. 
 
     Returns:
-        TYPE: model without the desired field. 
+        (list): a schemma of the model with the fields removed.
     """
     return model._pw_index_.delete_field(*arg)
 
@@ -40,11 +44,18 @@ def full_search(pw, *arg, **kw):
     """ This function search in every model registered. And portrays the result in a dictionary where the keys are the models. 
 
     Args:
-        pw (PonyWhoosh): This is where all the indexes are stored. 
-        *arg: The search string. 
-        **kw: The options available for a single search wildcards, something, fields, models, etc. 
+        pw (PonyWhoosh): This is where all the indexes are stored. An instance of PonyWhoosh class.
+        query (str): the string expression to search.
+    
+    Optional Args:
+        - include_entity (bool): include in each result the entity values associated of the fields stored. 
+        - add_wildcards (bool): set it if you want to consider matches that have prefix or suffixes the query.
+        - something (bool): set `add_willcards` in case of none results for the query.
+        - fields (list): specified the fields names that you want to consider.
+        - except_fields (list): specified the fields names to not consider in the search.
+        - models (list): a list of name of model to search or even the models from the database.
 
     Returns:
-        TYPE: Dictionary with all the the results for the models. 
+        (dict): A python dictionary with the results for the model. 
     """
     return pw.search(*arg, **kw)
