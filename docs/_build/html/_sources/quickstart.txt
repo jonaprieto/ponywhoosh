@@ -274,7 +274,7 @@ If you want that the  items look like a list rather than a dictionary. You can u
 .. |wildcards| image:: https://github.com/compiteing/ponywhoosh/blob/master/images/wildcards.gif?raw=true
    :target: https://pypi.python.org/pypi/PonyWhoosh
 
-.. |byfield| image:: https://github.com/compiteing/ponywhoosh/blob/master/images/searchingbyfield.gif?raw=true
+.. |byfield| image:: https://github.com/compiteing/ponywhoosh/blob/master/images/byfield.gif?raw=true
    :target: https://pypi.python.org/pypi/Flask-PonyWhoosh
 .. |database| image:: https://github.com/compiteing/flask-ponywhoosh/blob/master/images/databaseconfig.gif?raw=true
    :target: https://pypi.python.org/pypi/Flask-PonyWhoosh
