@@ -19,13 +19,13 @@ After you have registered the indexes where you want to store the searcheables. 
 
 However if you'd rather  prefer to "see" the results, you may access to the route '/ponywhoosh/' available when you run the server (available with flask based apps). 
 
-Testing on the shell.
-*********************
+Testing on the python.
+**********************
 
 |model|
 .. code :: python
     
-   PonyModel._pw_.search(query, **kwargs)
+   PonyModel._pw_index.search(query, **kwargs)
 
 There are several options to perform a search with ``ponywhoosh``. For instance, to execute a  simple search, choose the entity where you want to perform the search and then  try
 something like the following code over a view function, or even from the shell,
@@ -252,7 +252,7 @@ use_dict:
 
 If you want that the  items look like a list rather than a dictionary. You can use the option use_dict: this option by default is set True. However if you choose false, results will look something like ('field', 'result')
   
-.. |model| image:: https://github.com/compiteing/flask-ponywhoosh/blob/master/images/modelsearch.gif?raw=true
+.. |model| image:: https://github.com/compiteing/flask-ponywhoosh/blob/master/images/model.gif?raw=true
    :target: https://pypi.python.org/pypi/Flask-PonyWhoosh
 
 .. |wildcards| image:: https://github.com/compiteing/flask-ponywhoosh/blob/master/images/addwildcards.gif?raw=true
