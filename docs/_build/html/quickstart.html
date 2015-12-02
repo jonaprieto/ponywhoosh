@@ -62,7 +62,7 @@
 <div class="code bash highlight-python"><div class="highlight"><pre>$ python
 </pre></div>
 </div>
-<p>However if you&#8217;d rather  prefer to &#8220;see&#8221; the results, you may access to the route &#8216;/ponywhoosh/&#8217; available when you run the server (available with flask based apps).</p>
+<p>However if you&#8217;d rather  prefer to &#8220;see&#8221; the results, you may access to the route &#8216;/ponywhoosh/&#8217; available when you run the server (only available  for <a class="reference external" href="https://pypi.python.org/pypi/Flask-PonyWhoosh/0.1.6b0">flask</a> based apps).</p>
 <div class="section" id="testing-on-the-python">
 <h2>Testing on the python.<a class="headerlink" href="#testing-on-the-python" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://pypi.python.org/pypi/PonyWhoosh"><img alt="model" src="https://github.com/compiteing/ponywhoosh/blob/master/images/model.gif?raw=true" /></a></p>
@@ -71,21 +71,26 @@
 </div>
 <p>There are several options to perform a search with <code class="docutils literal"><span class="pre">ponywhoosh</span></code>. For instance, to execute a  simple search, choose the entity where you want to perform the search and then  try
 something like the following code over a view function, or even from the shell,</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">example</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Departament</span><span class="o">.</span><span class="n">_pw_index_</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&quot;applied&quot;</span><span class="p">,</span><span class="n">include_entity</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="go">{&#39;cant_results&#39;: 1,</span>
-<span class="go"> &#39;facet_names&#39;: [],</span>
-<span class="go"> &#39;matched_terms&#39;: {&#39;name&#39;: [&#39;applied&#39;]},</span>
-<span class="go"> &#39;results&#39;: [{&#39;docnum&#39;: 2L,</span>
-<span class="go">              &#39;entity&#39;: {&#39;name&#39;: u&#39;Department of Applied Physics&#39;,</span>
-<span class="go">                         &#39;number&#39;: 3},</span>
-<span class="go">              &#39;model&#39;: &#39;Department&#39;,</span>
-<span class="go">              &#39;pk&#39;: (u&#39;3&#39;,),</span>
-<span class="go">              &#39;score&#39;: 1.4054651081081644}],</span>
-<span class="go"> &#39;runtime&#39;: 0.0007810592651367188}</span>
+<div class="code python highlight-python"><div class="highlight"><pre>&gt;&gt; from example import *
+&gt;&gt; from ponywhoosh import *
+&gt;&gt; populate_database()
+&gt;&gt; s=Department._pw_index_.search(&quot;applied&quot;,include_ent
+ty=True)
+&gt;&gt; pprint(s)
+&#39;cant_results&#39;: 1,
+&#39;facet_names&#39;: [],
+&#39;matched_terms&#39;: {&#39;name&#39;: [&#39;applied&#39;]},
+&#39;results&#39;: [{&#39;docnum&#39;: 2L,
+             &#39;entity&#39;: {&#39;name&#39;: u&#39;Department of Applied Physics&#39;,
+                        &#39;number&#39;: 3},
+             &#39;model&#39;: &#39;Department&#39;,
+             &#39;pk&#39;: (u&#39;3&#39;,),
+             &#39;score&#39;: 1.4054651081081644}],
+&#39;runtime&#39;: 0.0010540485382080078}
 </pre></div>
 </div>
 <p>If you would prefer, you may use the function <code class="docutils literal"><span class="pre">search()</span></code>,  which will run the same function but is quite more handy when writing</p>
+<p><a class="reference external" href="https://pypi.python.org/pypi/PonyWhoosh"><img alt="search" src="https://github.com/compiteing/ponywhoosh/blob/master/images/search.gif?raw=true" /></a></p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ponywhoosh</span> <span class="kn">import</span> <span class="n">search</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">example</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">search</span><span class="p">(</span><span class="n">Department</span><span class="p">,</span><span class="s">&quot;applied&quot;</span><span class="p">,</span> <span class="n">include_entity</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -150,7 +155,7 @@ the model. (Refer to the <em>Usage</em> section above)</p>
 </div>
 <div class="section" id="searching-by-field">
 <h2>Searching by field:<a class="headerlink" href="#searching-by-field" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://pypi.python.org/pypi/Flask-PonyWhoosh"><img alt="byfield" src="https://github.com/compiteing/flask-ponywhoosh/blob/master/images/searchingbyfield.gif?raw=true" /></a></p>
+<p><a class="reference external" href="https://pypi.python.org/pypi/Flask-PonyWhoosh"><img alt="byfield" src="https://github.com/compiteing/ponywhoosh/blob/master/images/searchingbyfield.gif?raw=true" /></a></p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="n">search</span><span class="p">(</span><span class="n">PonyModel</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s">&quot;field_name&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -196,7 +201,7 @@ For these reasons we implemented the following extra options: The first one is r
 </div>
 <div class="section" id="add-wildcards-and-something">
 <h2>add_wildcards and something<a class="headerlink" href="#add-wildcards-and-something" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://pypi.python.org/pypi/Flask-PonyWhoosh"><img alt="wildcards" src="https://github.com/compiteing/flask-ponywhoosh/blob/master/images/addwildcards.gif?raw=true" /></a></p>
+<p><a class="reference external" href="https://pypi.python.org/pypi/PonyWhoosh"><img alt="wildcards" src="https://github.com/compiteing/ponywhoosh/blob/master/images/wildcards.gif?raw=true" /></a></p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="n">search</span><span class="p">(</span><span class="n">PonyModel</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">add_wildcards</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -270,7 +275,7 @@ For these reasons we implemented the following extra options: The first one is r
 </div>
 <div class="section" id="use-dict">
 <h2>use_dict:<a class="headerlink" href="#use-dict" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://pypi.python.org/pypi/Flask-PonyWhoosh"><img alt="usedict" src="https://github.com/compiteing/flask-ponywhoosh/blob/master/images/use_dict.gif?raw=true" /></a></p>
+<p><a class="reference external" href="https://pypi.python.org/pypi/Flask-PonyWhoosh"><img alt="usedict" src="https://github.com/compiteing/ponywhoosh/blob/master/images/use_dict.gif?raw=true" /></a></p>
 <p>If you want that the  items look like a list rather than a dictionary. You can use the option use_dict: this option by default is set True. However if you choose false, results will look something like (&#8216;field&#8217;, &#8216;result&#8217;)</p>
 </div>
 </div>

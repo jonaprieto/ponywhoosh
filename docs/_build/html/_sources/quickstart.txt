@@ -17,7 +17,10 @@ After you have registered the indexes where you want to store the searcheables. 
 
 
 
-However if you'd rather  prefer to "see" the results, you may access to the route '/ponywhoosh/' available when you run the server (available with flask based apps). 
+However if you'd rather  prefer to "see" the results, you may access to the route '/ponywhoosh/' available when you run the server (only available  for `flask`_ based apps). 
+
+
+.. _flask: https://pypi.python.org/pypi/Flask-PonyWhoosh/0.1.6b0
 
 Testing on the python.
 **********************
@@ -34,20 +37,26 @@ something like the following code over a view function, or even from the shell,
 
 .. code:: python
 
-  >>> from example import *
-  >>> Departament._pw_index_.search("applied",include_entity=True)
-  {'cant_results': 1,
-   'facet_names': [],
-   'matched_terms': {'name': ['applied']},
-   'results': [{'docnum': 2L,
-                'entity': {'name': u'Department of Applied Physics',
-                           'number': 3},
-                'model': 'Department',
-                'pk': (u'3',),
-                'score': 1.4054651081081644}],
-   'runtime': 0.0007810592651367188}
+    >> from example import *
+    >> from ponywhoosh import *
+    >> populate_database()
+    >> s=Department._pw_index_.search("applied",include_ent
+    ty=True)
+    >> pprint(s)
+    'cant_results': 1,
+    'facet_names': [],
+    'matched_terms': {'name': ['applied']},
+    'results': [{'docnum': 2L,
+                 'entity': {'name': u'Department of Applied Physics',
+                            'number': 3},
+                 'model': 'Department',
+                 'pk': (u'3',),
+                 'score': 1.4054651081081644}],
+    'runtime': 0.0010540485382080078}
 
 If you would prefer, you may use the function ``search()``,  which will run the same function but is quite more handy when writing
+
+|search|
 
 .. code:: python
 
@@ -259,15 +268,18 @@ If you want that the  items look like a list rather than a dictionary. You can u
 .. |model| image:: https://github.com/compiteing/ponywhoosh/blob/master/images/model.gif?raw=true
    :target: https://pypi.python.org/pypi/PonyWhoosh
 
-.. |wildcards| image:: https://github.com/compiteing/flask-ponywhoosh/blob/master/images/addwildcards.gif?raw=true
-   :target: https://pypi.python.org/pypi/Flask-PonyWhoosh
+.. |search| image:: https://github.com/compiteing/ponywhoosh/blob/master/images/search.gif?raw=true
+   :target: https://pypi.python.org/pypi/PonyWhoosh
 
-.. |byfield| image:: https://github.com/compiteing/flask-ponywhoosh/blob/master/images/searchingbyfield.gif?raw=true
+.. |wildcards| image:: https://github.com/compiteing/ponywhoosh/blob/master/images/wildcards.gif?raw=true
+   :target: https://pypi.python.org/pypi/PonyWhoosh
+
+.. |byfield| image:: https://github.com/compiteing/ponywhoosh/blob/master/images/searchingbyfield.gif?raw=true
    :target: https://pypi.python.org/pypi/Flask-PonyWhoosh
 .. |database| image:: https://github.com/compiteing/flask-ponywhoosh/blob/master/images/databaseconfig.gif?raw=true
    :target: https://pypi.python.org/pypi/Flask-PonyWhoosh
 
-.. |usedict| image:: https://github.com/compiteing/flask-ponywhoosh/blob/master/images/use_dict.gif?raw=true
+.. |usedict| image:: https://github.com/compiteing/ponywhoosh/blob/master/images/use_dict.gif?raw=true
    :target: https://pypi.python.org/pypi/Flask-PonyWhoosh
    
 .. |first| image:: https://github.com/compiteing/flask-ponywhoosh/blob/master/images/searchfirsttime.gif?raw=true
