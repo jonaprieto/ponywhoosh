@@ -68,29 +68,27 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="app-configuration">
-<h2>App Configuration<a class="headerlink" href="#app-configuration" title="Permalink to this headline">¶</a></h2>
-<p>In the file you are running  your app, you can initialize the
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>Initialize the
 Ponywhoosh and set up the general configurations.</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">ponywhoosh</span> <span class="kn">import</span> <span class="n">Ponywhoosh</span>
-<span class="n">Ponywhoosh</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+<span class="n">pw</span> <span class="o">=</span> <span class="n">Ponywhoosh</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s">&#39;WHOOSHEE_DIR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;whooshes&#39;</span>
-<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s">&#39;PONYWHOOSH_DEBUG&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
-<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s">&#39;WHOSHEE_MIN_STRING_LEN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s">&#39;WHOOSHEE_WRITER_TIMEOUT&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s">&#39;WHOOSHEE_URL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;/ponywhoosh&#39;</span>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">pw</span><span class="o">.</span><span class="n">search_string_min_len</span><span class="o">=</span> <span class="mi">3</span>
+<span class="n">pw</span><span class="o">.</span><span class="n">indexes_path</span><span class="o">=</span><span class="s">&#39;ponyindexes&#39;</span>
+<span class="n">pw</span><span class="o">.</span><span class="n">writer_timeout</span><span class="o">=</span> <span class="mi">2</span>
 </pre></div>
 </div>
-<p>These configurations set up the default folder to save the Indexes, if you want to activate debug, the minimun lenght of the string in the query, the time out (stop searching if is taking so much) and the route where you might charge the default template for searching (available from version 0.1.5.)</p>
+<p>These configurations set up the default folder to save the Indexes, if you want to activate debug, the minimun lenght of the string in the query, the time out (stop searching if is taking so much).</p>
 </div>
 <div class="section" id="database-configuration">
 <h2>Database Configuration<a class="headerlink" href="#database-configuration" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://pypi.python.org/pypi/Flask-PonyWhoosh"><img alt="database" src="https://github.com/compiteing/flask-ponywhoosh/blob/master/images/databaseconfig.gif?raw=true" /></a></p>
 <p>Import the ponywhoosh library in the file you have the database entities.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">ponywhoosh</span> <span class="kn">import</span> <span class="n">Whoosh</span>
-<span class="n">pw</span> <span class="o">=</span> <span class="n">Ponywhoosh</span><span class="p">()</span>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">PonyWhoosh</span> <span class="kn">import</span> <span class="n">PonyWhoosh</span>
+<span class="n">pw</span> <span class="o">=</span> <span class="n">PonyWhoosh</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>For each entity wrap it up with the decorator
@@ -108,11 +106,11 @@ Ponywhoosh and set up the general configurations.</p>
 </div>
 <p>As you could see in the previous example, you should declare as strings these fields where you want whoosh to store the searcheables (<code class="docutils literal"><span class="pre">name</span></code>, <code class="docutils literal"><span class="pre">age</span></code>, etc.). All the parameters from whoosh are available, You just have to listed separating them with commas: sortable, stored, scored, etc. Refer to whoosh documentation for
 further explanations on the application of these parameters.</p>
-<p>The first field you register (in the example, &#8216;name&#8217;), would be the main field for you. In that way when you render the template &#8216;/ponywhoosh&#8217;, the cards results would show this field as the main one.</p>
 </div>
 <div class="section" id="searching-for-the-first-time">
 <h2>Searching: for the first  time<a class="headerlink" href="#searching-for-the-first-time" title="Permalink to this headline">¶</a></h2>
-<p>In the shell view you can search using the &#8220;search()&#8221; function. Running our example, let us suppose  we are looking for the word &#8220;applied&#8221; in the model Department. After we run our example.py with the shell, we should follow the following steps:</p>
+<p>In python view  (we are using bpython by the way) you can search using the &#8220;search()&#8221; function. Running our example, let us suppose  we are looking for the word &#8220;applied&#8221; in the model Department. After we run our example.py , we should follow the following steps:</p>
+<p><a class="reference external" href="https://pypi.python.org/pypi/PonyWhoosh"><img alt="first" src="https://github.com/compiteing/ponywhoosh/blob/master/images/example.gif?raw=true" /></a></p>
 </div>
 </div>
 
@@ -129,7 +127,7 @@ further explanations on the application of these parameters.</p>
   <ul>
 <li><a class="reference internal" href="#">Getting Started:</a><ul>
 <li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#app-configuration">App Configuration</a></li>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
 <li><a class="reference internal" href="#database-configuration">Database Configuration</a></li>
 <li><a class="reference internal" href="#searching-for-the-first-time">Searching: for the first  time</a></li>
 </ul>
