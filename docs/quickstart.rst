@@ -23,6 +23,8 @@ Testing on the python.
 **********************
 
 |model|
+
+
 .. code :: python
     
    PonyModel._pw_index.search(query, **kwargs)
@@ -33,7 +35,7 @@ something like the following code over a view function, or even from the shell,
 .. code:: python
 
   >>> from example import *
-  >>> Departament._pw_index.search("applied",include_entity=True)
+  >>> Departament._pw_index_.search("applied",include_entity=True)
   {'cant_results': 1,
    'facet_names': [],
    'matched_terms': {'name': ['applied']},
@@ -104,10 +106,10 @@ the model. (Refer to the *Usage* section above)
 
 In synthesis, the options available are: ``sortedby``, ``scored``, ``limit``, ``optimize``, ``reverse``. Which are widely described in the whoosh documentation.
 
-The Attribute ``_pw_index.``
+The Attribute ``_pw_index_.``
 ******************************
 
-There are some special features avalaible for models from the database. You just have to call the model ``PonyModel._pw_.``: 
+There are some special features avalaible for models from the database. You just have to call the model ``PonyModel._pw_index_.``: 
 
 
 * ``add_field``: This function is to add a desired field in the index. 
@@ -119,7 +121,9 @@ There are some special features avalaible for models from the database. You just
 
 Searching by field:
 *******************
+
 |byfield|
+
 .. code:: python 
 
     search(PonyModel, query, field="field_name")
