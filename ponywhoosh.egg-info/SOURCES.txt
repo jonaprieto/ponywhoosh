@@ -1,5 +1,6 @@
 CHANGELOG.rst
 README.rst
+requirements.txt
 setup.cfg
 setup.py
 ponywhoosh/__init__.py

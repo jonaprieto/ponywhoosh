@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: ponywhoosh
-Version: 1.2
+Version: 1.4
 Summary: Make your database over PonyORM searchable. The backend behind the Flask-PonyWhoosh.
 Home-page: https://github.com/compiteing/ponywhoosh
 Author: Jonathan S. Prieto. & Ivan Felipe Rodriguez

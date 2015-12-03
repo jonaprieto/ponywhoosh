@@ -40,14 +40,11 @@ setup(
     long_description='%s\n%s' % (
         read('README.rst'), re.sub(':obj:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst'))),
     packages=['ponywhoosh',],
-    package_data={'': ['license.txt']},
     zip_safe=False,
     include_package_data=True,
     platforms='any',
     keywords=['ponyorm', 'whoosh', 'search', 'searchable', 'pony' 'full-text', 'engine', 'flask-ponywhoosh'],
-    install_requires=[x.strip() for x in
-                      open(os.path.join(os.path.dirname(__file__),
-                                        'requirements.txt'))],
+    install_requires=['pony', 'whoosh'],
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
