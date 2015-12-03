@@ -45,4 +45,5 @@ nosetests.xml
 .idea
 venv/
 ponyindexes/
+indexes/
 docs/_build/html/html.zip
