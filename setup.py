@@ -40,6 +40,7 @@ setup(
     long_description='%s\n%s' % (
         read('README.rst'), re.sub(':obj:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst'))),
     packages=['ponywhoosh',],
+    package_data={'': ['license.txt']},
     zip_safe=False,
     include_package_data=True,
     platforms='any',
