@@ -37,7 +37,7 @@ setup(
     description='Make your database over PonyORM searchable. The backend behind the Flask-PonyWhoosh.',
     long_description='%s\n%s' % (
         read('README.rst'), re.sub(':obj:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst'))),
-    packages=['ponywhoosh',],
+    packages=find_packages(),
     zip_safe=False,
     include_package_data=True,
     platforms='any',
