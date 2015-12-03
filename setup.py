@@ -17,8 +17,6 @@ import os
 from os.path import basename, dirname, join, relpath, splitext
 import re
 
-from ponywhoosh import __version__
-
 import io
 from setuptools import find_packages, setup
 
@@ -31,7 +29,7 @@ def read(*names, **kwargs):
 
 setup(
     name='ponywhoosh',
-    version=__version__,
+    version="1.6",
     url='https://github.com/compiteing/ponywhoosh',
     license='BSD',
     author='Jonathan S. Prieto. & Ivan Felipe Rodriguez',
