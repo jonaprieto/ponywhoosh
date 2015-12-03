@@ -1,0 +1,77 @@
+Metadata-Version: 1.1
+Name: ponywhoosh
+Version: 1.2
+Summary: Make your database over PonyORM searchable. The backend behind the Flask-PonyWhoosh.
+Home-page: https://github.com/compiteing/ponywhoosh
+Author: Jonathan S. Prieto. & Ivan Felipe Rodriguez
+Author-email: prieto.jona@gmail.com
+License: BSD
+Description: ponywhoosh
+        ==========
+        |PyPI Package latest release| |PyPI Package monthly downloads| |Test|
+        
+        Make your database over PonyORM searchable. 
+        
+        Check the documentation on  http://pythonhosted.org/ponywhoosh/
+        Install package, import and start adding what fields of your models in your database, you want to search.
+        
+        .. image:: https://github.com/compiteing/flask-ponywhoosh/blob/master/images/databaseconfig.gif?raw=true
+           :target: https://pypi.python.org/pypi/ponywhoosh
+           :scale: 70%
+           :align: center 
+           :alt: PonyWhoosh
+        
+        
+        Perform full-text searches on your database with Pony ORM powered by
+        Whoosh and Flask. It can be easily pluggable in your flask app. Look at
+        examples' folder.
+        
+        Please take a look to the official documentation up to date:
+        
+            -  http://pythonhosted.org/ponywhoosh/
+            -  https://pypi.python.org/pypi/ponywhoosh
+        
+        Installation
+        ------------
+        
+        .. code:: python
+        
+            pip install --upgrade ponywhoosh
+        
+        or use the develop (unstable) version:
+        
+        .. code:: bash
+        
+            git clone https://github.com/compiteing/ponywhoosh.git
+        
+        
+        
+        .. |PyPI Package latest release| image:: http://img.shields.io/pypi/v/ponywhoosh.png?style=flat
+           :target: https://pypi.python.org/pypi/ponywhoosh
+        .. |PyPI Package monthly downloads| image:: http://img.shields.io/pypi/dm/ponywhoosh.png?style=flat
+           :target: https://pypi.python.org/pypi/ponywhoosh
+        .. |Test| image:: https://travis-ci.org/piperod/ponywhoosh.svg?branch=master
+           :target: https://travis-ci.org/piperod/ponywhoosh
+        
+        Changelog
+        =========
+        
+        1.2 (2015-11-30)
+        -----------------------------------------
+        
+        * Fix mistaken bugs with setup.py
+        
+        
+        1.0 (2015-11-30)
+        -----------------------------------------
+        
+        * First release on PyPI.
+Keywords: ponyorm,whoosh,search,searchable,ponyfull-text,engine,flask-ponywhoosh
+Platform: any
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
