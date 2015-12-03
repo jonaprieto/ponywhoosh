@@ -29,7 +29,7 @@ def read(*names, **kwargs):
 
 setup(
     name='ponywhoosh',
-    version="1.6",
+    version="1.7",
     url='https://github.com/compiteing/ponywhoosh',
     license='BSD',
     author='Jonathan S. Prieto. & Ivan Felipe Rodriguez',

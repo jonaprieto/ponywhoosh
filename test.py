@@ -78,8 +78,8 @@ class BaseTestCases(object):
         def test_search_sortedby(self):
             self.fixtures()
             found = self.Attribute._pw_index_.search('lun', add_wildcards=True, sortedby="weight", include_entity=True)
-            self.assertEqual(self.a1.id, found['results'][0]['entity']['id'])
-            self.assertEqual(self.a2.id, found['results'][1]['entity']['id'])
+            self.assertEqual(self.a2.id, found['results'][0]['entity']['id'])
+            self.assertEqual(self.a1.id, found['results'][1]['entity']['id'])
 
         def test_full_search_without_wildcards(self):
             self.fixtures()
