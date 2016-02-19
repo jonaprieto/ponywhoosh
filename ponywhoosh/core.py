@@ -201,6 +201,7 @@ class PonyWhoosh(object):
 
             model._after_save_ = _middle_save_
             model._pw_index_ = index
+            model.search =  model._pw_index_.search
             index._model = model
             return model
         return inner
