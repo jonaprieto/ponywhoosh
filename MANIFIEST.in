@@ -1,17 +1,8 @@
-graft src
-
-
-include *.komodoproject
-include .bumpversion.cfg
-include .coveragerc
-include .isort.cfg
-include .pylintrc
-
-include AUTHORS.rst
-include CHANGELOG.rst
+include *.rst
+recursive-include data *
 include LICENSE
-include README.rst
-include ponywhoosh/*
+include ponywhoosh *.*
+include docs/_build/html *.*
 
 include tox.ini 
 

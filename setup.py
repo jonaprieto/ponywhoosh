@@ -17,11 +17,8 @@ import os
 from os.path import basename, dirname, join, relpath, splitext
 import re
 
-from ponywhoosh import __version__
-
 import io
 from setuptools import find_packages, setup
-
 
 
 def read(*names, **kwargs):
@@ -32,7 +29,7 @@ def read(*names, **kwargs):
 
 setup(
     name='ponywhoosh',
-    version=__version__,
+    version="1.7",
     url='https://github.com/compiteing/ponywhoosh',
     license='BSD',
     author='Jonathan S. Prieto. & Ivan Felipe Rodriguez',
@@ -40,14 +37,12 @@ setup(
     description='Make your database over PonyORM searchable. The backend behind the Flask-PonyWhoosh.',
     long_description='%s\n%s' % (
         read('README.rst'), re.sub(':obj:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst'))),
-    py_modules=['ponywhoosh'],
+    packages=find_packages(),
     zip_safe=False,
     include_package_data=True,
     platforms='any',
     keywords=['ponyorm', 'whoosh', 'search', 'searchable', 'pony' 'full-text', 'engine', 'flask-ponywhoosh'],
-    install_requires=[x.strip() for x in
-        open(os.path.join(os.path.dirname(__file__),
-            'requirements.txt'))],
+    install_requires=['pony', 'whoosh'],
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',

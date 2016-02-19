@@ -4,7 +4,6 @@ ponywhoosh
 
 Make your database over PonyORM searchable. 
 
-Check the documentation on  http://pythonhosted.org/ponywhoosh/
 Install package, import and start adding what fields of your models in your database, you want to search.
 
 .. image:: https://github.com/compiteing/flask-ponywhoosh/blob/master/images/databaseconfig.gif?raw=true
@@ -13,10 +12,6 @@ Install package, import and start adding what fields of your models in your data
    :align: center 
    :alt: PonyWhoosh
 
-
-Perform full-text searches on your database with Pony ORM powered by
-Whoosh and Flask. It can be easily pluggable in your flask app. Look at
-examples' folder.
 
 Please take a look to the official documentation up to date:
 
@@ -42,5 +37,5 @@ or use the develop (unstable) version:
    :target: https://pypi.python.org/pypi/ponywhoosh
 .. |PyPI Package monthly downloads| image:: http://img.shields.io/pypi/dm/ponywhoosh.png?style=flat
    :target: https://pypi.python.org/pypi/ponywhoosh
-.. |Test| image:: https://travis-ci.org/piperod/ponywhoosh.svg?branch=master
-   :target: https://travis-ci.org/piperod/ponywhoosh
+.. |Test| image:: https://travis-ci.org/compiteing/ponywhoosh.svg?branch=master
+    :target: https://travis-ci.org/compiteing/ponywhoosh

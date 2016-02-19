@@ -4,80 +4,65 @@
 Searching
 =========
 
-After you have registered the indexes where you want to store the searcheables. You can perform some testing by entering to the shell of your aplication: 
+ 
 
-.. code :: bash
-  
-  $ python 
-
-.. code :: python
-    >>> from example import *
-    >>> populate_database()
-    >>> pw.search("Jing")
+Your very first time 
+********************
 
 
+The first time, after the configurations statements, we are performing a basic search over the entire database, that is, looking for a string query in each table, model from the database that were indexed. 
 
-However if you'd rather  prefer to "see" the results, you may access to the route '/ponywhoosh/' available when you run the server (only available  for `flask`_ based apps). 
+The examples in this page will be based on the source code ``example.py`` available  `here <https://raw.githubusercontent.com/compiteing/ponywhoosh/master/example.py>`_.
 
+Let's start opening a terminal, a python console and find out how to perform a search using the ``search()``method.
 
-.. _flask: https://pypi.python.org/pypi/Flask-PonyWhoosh/0.1.6b0
-
-Testing on the python.
-**********************
-
-|model|
-
-
-.. code :: python
-    
-   PonyModel._pw_index.search(query, **kwargs)
-
-There are several options to perform a search with ``ponywhoosh``. For instance, to execute a  simple search, choose the entity where you want to perform the search and then  try
-something like the following code over a view function, or even from the shell,
 
 .. code:: python
 
-    >> from example import *
-    >> from ponywhoosh import *
-    >> populate_database()
-    >> s=Department._pw_index_.search("applied",include_ent
-    ty=True)
-    >> pprint(s)
-    'cant_results': 1,
-    'facet_names': [],
-    'matched_terms': {'name': ['applied']},
-    'results': [{'docnum': 2L,
-                 'entity': {'name': u'Department of Applied Physics',
-                            'number': 3},
-                 'model': 'Department',
-                 'pk': (u'3',),
-                 'score': 1.4054651081081644}],
-    'runtime': 0.0010540485382080078}
+    $ python
 
-If you would prefer, you may use the function ``search()``,  which will run the same function but is quite more handy when writing
-
-|search|
+and then type for us these lines:
 
 .. code:: python
 
-    >>> from ponywhoosh import search
-    >>> from example import *
-    >>> search(Department,"applied", include_entity=True) 
-    {'cant_results': 1,
-     'facet_names': [],
-     'matched_terms': {'name': ['applied']},
-     'results': [{'docnum': 2L,
-                  'entity': {'name': u'Department of Applied Physics',
-                             'number': 3},
-                  'model': 'Department',
-                  'pk': (u'3',),
-                  'score': 1.4054651081081644}],
-     'runtime': 0.0007810592651367188}
+ >>> from example import *
+ >>> populate_database() 
+ >>> pw.search("smith")
 
-Search():
-*********
+Now, let us suppose  we are looking for the word "applied" but this time, we want look up just in the model ``Student``. This is how we can do that:
 
-|first|
+.. code:: python
+
+ >>> from example import *
+ >>> populate_database() 
+ >>> from ponywhoosh import search
+ >>> search(Student, "smith")
+
+The above code tells you that you can actually perform a search on a specific model as long as you import the method ``search`` from the package, with this line:
+
+.. code:: python
+
+ >>> from ponywhoosh import search
+
+Or using the method attached to the model as we show later but not that handy like above.
+
+.. code:: python
+
+ >>> from example import *
+ >>> populate_database() 
+ >>> Student._pw_index_.search("smith")
+
+We are fan of the images. Then look at this:
+
+
+|firsttime|
+
+
+However if you'd rather  prefer to "see" the results in better way, may be with a browser. For this reaseon, we have developed another package over `Flask` web framework, `Flask-PonyWhoosh <https://pypi.python.org/pypi/Flask-PonyWhoosh>`_  package. After installed it, you may access to the route ``/ponywhoosh/`` available when you run the server.
+
+
+Our ``search`` master method
+****************************
 
 The function ``search()`` takes up to three arguments.
 1. A ponymodel, the databse entity where you want to perform the search.
@@ -87,6 +72,11 @@ The function ``search()`` takes up to three arguments.
 .. code:: python
 
     search(PonyModel, "query", **kw)
+
+
+
+|first|
+
 
 For example, if  you want  the results to be sorted by some specific searcheable field,
 you have to indicate so, by adding the argument ``sortedby="field"``.
@@ -115,8 +105,8 @@ the model. (Refer to the *Usage* section above)
 
 In synthesis, the options available are: ``sortedby``, ``scored``, ``limit``, ``optimize``, ``reverse``. Which are widely described in the whoosh documentation.
 
-The Attribute ``_pw_index_.``
-******************************
+``PonyModel._pw_index_.`` syntax
+********************************
 
 There are some special features avalaible for models from the database. You just have to call the model ``PonyModel._pw_index_.``: 
 
@@ -128,8 +118,8 @@ There are some special features avalaible for models from the database. You just
 * ``update_documents``: This function deletes all the documents and recharges them again. 
 * ``counts``: This function counts all the documents existing in an index. 
 
-Searching by field:
-*******************
+Searching by field
+******************
 
 |byfield|
 
@@ -178,18 +168,23 @@ For these reasons we implemented the following extra options: The first one is r
                       'score': 5.500610730717037}],
          'runtime': 0.006212949752807617}
 
-add_wildcards and something 
-***************************
 
-|wildcards|
+
+Fancy ``add_wildcards`` and ``something`` options 
+*************************************************
+
 
 .. code :: python
     
    search(PonyModel, query, add_wildcards=True)
 
+
+|wildcards|
+
+
 Whoosh  sets a wildcard ``*``,``?``,``!`` by default to perform search for inexact terms, however sometimes  is desirable to search by exact terms instead. For this reason we added two more options: ``add_wildcards`` and ``something``. 
 
-The option *add_wildcards* (by default False)  is a boolean argument that tells the searcher whether it should or not include wild cards. For example, if you want to search "harol" when ``add_wildcards=False``, and you search by "har" the results would be 0. If ``add_wildcards=True`` , then "har" would be fair enough to get the result "harol"  because searching was performed  using wild cards. 
+The option ``add_wildcards`` (by default ``False``)  is a boolean argument that tells the searcher whether it should or not include wild cards. For example, if you want to search "harol" when ``add_wildcards=False``, and you search by "har" the results would be 0. If ``add_wildcards=True`` , then "har" would be fair enough to get the result "harol"  because searching was performed  using wild cards. 
 
 .. code:: python
 
@@ -253,13 +248,13 @@ The ``search()`` function returns a dictionary with selected information.
 * ``runtime``: how much time the searcher took to find it.   
 * ``results``: is  a dictionary's list for the individual results. i.e. a dictionary for every single result, containing: 
 
-  * 'rank': the position of the result, 
-  * 'result': indicating the primary key and the correspond value of the item, 
-  * 'score': the score for the item in the search, and
-  * 'pk': the primary key Or the sets of primary keys. 
+  * ``rank``: the position of the result, 
+  * ``result``: indicating the primary key and the correspond value of the item, 
+  * ``score``: the score for the item in the search, and
+  * ``pk``: the primary key Or the sets of primary keys. 
 
-use_dict:
-*********
+The ``use_dict`` option
+************************
 
 |usedict|
 
@@ -285,3 +280,5 @@ If you want that the  items look like a list rather than a dictionary. You can u
 .. |first| image:: https://github.com/compiteing/flask-ponywhoosh/blob/master/images/searchfirsttime.gif?raw=true
    :target: https://pypi.python.org/pypi/Flask-PonyWhoosh
 
+.. |firsttime| image:: https://github.com/compiteing/ponywhoosh/blob/master/images/example.gif?raw=true
+   :target: https://pypi.python.org/pypi/PonyWhoosh

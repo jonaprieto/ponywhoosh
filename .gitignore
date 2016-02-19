@@ -5,7 +5,6 @@
 
 # Packages
 *.egg
-*.egg-info
 dist
 build
 eggs
@@ -45,4 +44,5 @@ nosetests.xml
 .idea
 venv/
 ponyindexes/
+indexes/
 docs/_build/html/html.zip
