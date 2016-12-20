@@ -1,12 +1,12 @@
 '''
 
-    ponywhoosh
-    ~~~~~~~~~~
+  ponywhoosh
+  ~~~~~~~~~~
 
-    Makes your database over PonyORM searchable.
+  Makes your database over PonyORM searchable.
 
-    :copyright: (c) 2015-2016 by Jonathan S. Prieto & Ivan Felipe Rodriguez.
-    :license: BSD (see LICENSE.md)
+  :copyright: (c) 2015-2017 by Jonathan S. Prieto & Ivan Felipe Rodriguez.
+  :license: BSD (see LICENSE.md)
 
 '''
 
