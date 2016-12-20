@@ -18,7 +18,6 @@ import tempfile
 from pony.orm           import *
 from ponywhoosh         import PonyWhoosh, search, full_search
 from pprint             import pprint
-from pprint             import pprint
 from unittest           import TestCase
 
 
