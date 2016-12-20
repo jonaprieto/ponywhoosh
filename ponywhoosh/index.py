@@ -1,288 +1,302 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# @Author: d555
+'''
 
-from collections import defaultdict
-from pprint import pprint
+  ponywhoosh
+  ~~~~~~~~~~
+
+  Makes your database over PonyORM searchable.
+
+  :copyright: (c) 2015-2017 by Jonathan Prieto-Cubides & Felipe Rodriguez.
+  :license: MIT (see LICENSE.md)
+
+'''
+
+
 import re
 
-from pony import orm
-from whoosh import fields as whoosh_module_fields
-from whoosh import qparser
+from collections                import defaultdict
+from pony                       import orm
+from pprint                     import pprint
+from whoosh                     import fields as whoosh_module_fields
+from whoosh                     import qparser
 
 
 class Index(object):
 
-    debug = False
-    _parameters = {
-        'limit': 0,
-        'optimize': False,
-        'reverse': False,
-        'scored': u'',
-        'sortedby': u'',
-    }
+  debug = False
+  _parameters = {
+      'limit'     : 0
+    , 'optimize'  : False
+    , 'reverse'   : False
+    , 'scored'    : u''
+    , 'sortedby'  : u''
+  }
 
-    @property
-    def whoosh(self):
-        return self._whoosh
+  @property
+  def whoosh(self):
+    return self._whoosh
 
-    @property
-    def path(self):
-        return self._path
+  @property
+  def path(self):
+    return self._path
 
-    @property
-    def schema(self):
-        return self._schema
+  @property
+  def schema(self):
+    return self._schema
 
-    @property
-    def name(self):
-        return self._name
+  @property
+  def name(self):
+    return self._name
 
-    @property
-    def fields(self):
-        return self._fields
+  @property
+  def fields(self):
+    return self._fields
 
-    def __init__(self, pw):
-        """
+  def __init__(self, pw):
+    """
 
-        Args:
-            pw (PonyWhoosh): Initializes of index. 
-        """
-        self._pw = pw
-        self.debug = pw.debug
+    Args:
+        pw (PonyWhoosh): Initializes of index.
+    """
+    self._pw = pw
+    self.debug = pw.debug
 
-    def add_field(self, fieldname, fieldspec=whoosh_module_fields.TEXT):
-        """Add a field in the index of the model. 
+  def add_field(self, fieldname, fieldspec=whoosh_module_fields.TEXT):
+    """Add a field in the index of the model.
 
-        Args:
-            fieldname (Text): This parameters register a new field in specified model.
-            fieldspec (Name, optional): This option adds various options as were described before. 
+    Args:
+        fieldname (Text): This parameters register a new field in specified model.
+        fieldspec (Name, optional): This option adds various options as were described before.
 
-        Returns:
-            TYPE: The new schema after deleted is returned. 
-        """
-        self._whoosh.add_field(fieldname, fieldspec)
-        return self._whoosh.schema
+    Returns:
+        TYPE: The new schema after deleted is returned.
+    """
+    self._whoosh.add_field(fieldname, fieldspec)
+    return self._whoosh.schema
 
-    def delete_field(self, field_name):
-        """This function deletes one determined field using the command MODEL.pw.delete_field(FIELD)
+  def delete_field(self, field_name):
+    """This function deletes one determined field using the command MODEL.pw.delete_field(FIELD)
 
-        Args:
-            field_name (string): This argument let you delete some field for some model registered in the index. 
+    Args:
+        field_name (string): This argument let you delete some field for some model registered in the index.
 
-        Returns:
-            (WhooshSchema): The new schema after deleted is returned. 
-        """
-        self._whoosh.remove_field(field_name.strip())
-        return self._whoosh.schema
+    Returns:
+        (WhooshSchema): The new schema after deleted is returned.
+    """
+    self._whoosh.remove_field(field_name.strip())
+    return self._whoosh.schema
 
-    def delete_documents(self):
-        """Deletes all the  documents using the  pk associated to them. 
-        """
-        pk = unicode(self._primary_key)
-        for doc in self._whoosh.searcher().documents():
-            if pk in doc:
-                doc_pk = unicode(doc[pk])
-                self._whoosh.delete_by_term(pk, doc_pk)
+  def delete_documents(self):
+    """Deletes all the  documents using the  pk associated to them.
+    """
+    pk = unicode(self._primary_key)
+    for doc in self._whoosh.searcher().documents():
+      if pk in doc:
+        doc_pk = unicode(doc[pk])
+        self._whoosh.delete_by_term(pk, doc_pk)
 
-    def optimize(self):
-        """ The index is reindexed, optimizing the run time of searchings and space used. Everytime a document is added a new file would be created, but optimizing would reduce all to just one. 
+  def optimize(self):
+    """ The index is reindexed, optimizing the run time of searchings and space used. Everytime a document is added a new file would be created, but optimizing would reduce all to just one.
 
-        Returns:
-            TYPE: Index optimized. 
-        """
-        self._whoosh.optimize()
+    Returns:
+        TYPE: Index optimized.
+    """
+    self._whoosh.optimize()
 
-    def counts(self):
-        """This method counts all the documents contained in  a certain registered model. 
+  def counts(self):
+    """This method counts all the documents contained in  a certain registered model.
 
-        Returns:
-            (int): how many documents are indexed of the model index. 
-        """
-        return self._whoosh.doc_count()
+    Returns:
+        (int): how many documents are indexed of the model index.
+    """
+    return self._whoosh.doc_count()
 
-    @orm.db_session
-    def charge_documents(self):
-        """
-        This method allow you to charge documents you already have 
-            in your database. In this way an Index would be created according to 
-            the model and fields registered. 
-        """
-        doc_count = self._whoosh.doc_count()
-        objs = orm.count(e for e in self._model)
+  @orm.db_session
+  def charge_documents(self):
+    """
+    This method allow you to charge documents you already have
+        in your database. In this way an Index would be created according to
+        the model and fields registered.
+    """
 
-        field_names = set(self._schema_attrs.keys())
-        missings = set(self._whoosh.schema.names())
+    doc_count = self._whoosh.doc_count()
+    objs      = orm.count(e for e in self._model)
 
-        for f in list(field_names - missings):
-            self.add_field(f, fields.TEXT(self.kw))
+    field_names = set(self._schema_attrs.keys())
+    missings    = set(self._whoosh.schema.names())
 
-        if doc_count == 0 and objs > 0:
-            writer = self._whoosh.writer()
-            for obj in orm.select(e for e in self._model):
-                attrs = {self._primary_key: obj.get_pk()}
-                for f in self._schema_attrs.keys():
-                    attrs[f] = unicode(getattr(obj, f))
-                writer.add_document(**attrs)
-            writer.commit()
+    for f in list(field_names - missings):
+        self.add_field(f, fields.TEXT(self.kw))
 
-    def update_documents(self):
-        """It deletes all the documents in the index and charge them again. 
-        """
-        self.delete_documents()
-        self.charge_documents()
+    if doc_count == 0 and objs > 0:
+      writer = self._whoosh.writer()
+      for obj in orm.select(e for e in self._model):
+        attrs = {self._primary_key: obj.get_pk()}
+        for f in self._schema_attrs.keys():
+          attrs[f] = unicode(getattr(obj, f))
+        writer.add_document(**attrs)
+      writer.commit()
 
-    @orm.db_session
-    def search(self, search_string, **opt):
-        """The core function of the package. These are the arguments we consider.  
+  def update_documents(self):
+    """It deletes all the documents in the index and charge them again.
+    """
+    self.delete_documents()
+    self.charge_documents()
+
+  @orm.db_session
+  def search(self, search_string, **opt):
+    """The core function of the package. These are the arguments we consider.
 
 
-        Args:
-            search_string (str): This is what you are looking for in your pony database. 
-        Optional Args: 
-            opt: The following opts are available for the search function: 
-            * add_wildcars(bool): This opt allows you to search no literal queries. 
-            * fields: This opt let you filter your search result on some model by the fields you want to search.
-            * include_entity: This opt let you see not only the result and the register fields but all the instance from the entity of the database. 
-            * except_fields: Tell the searcher to not look on these fields. 
-            * use_dict: This option let you activate the dict for the items in the search result, or just view them as a list. 
-            We implement this because we wanted that the  first field registered of the model would be the most important one. 
-            As was explained in the IndexView section. 
-        Returns:
-            (dict): A python dictionary with the results for the model. 
-        """
+    Args:
+        search_string (str): This is what you are looking for in your pony database.
+    Optional Args:
+        opt: The following opts are available for the search function:
+        * add_wildcars(bool): This opt allows you to search no literal queries.
+        * fields: This opt let you filter your search result on some model by the fields you want to search.
+        * include_entity: This opt let you see not only the result and the register fields but all the instance from the entity of the database.
+        * except_fields: Tell the searcher to not look on these fields.
+        * use_dict: This option let you activate the dict for the items in the search result, or just view them as a list.
+        We implement this because we wanted that the  first field registered of the model would be the most important one.
+        As was explained in the IndexView section.
+    Returns:
+        (dict): A python dictionary with the results for the model.
+    """
 
-        prepped_string = self.prep_search_string(
-            search_string, self.to_bool(opt.get('add_wildcards', False)))
+    prepped_string = self.prep_search_string(
+        search_string
+      , self.to_bool(opt.get('add_wildcards', False))
+      )
 
-        with self._whoosh.searcher() as searcher:
+    with self._whoosh.searcher() as searcher:
+      fields = opt.get('fields', self._schema.names())
+      fields = filter(lambda x: len(x) > 0, fields)
 
-            fields = opt.get('fields', self._schema.names())
-            fields = filter(lambda x: len(x) > 0, fields)
+      field = opt.get('field', '')
+      if len(field) > 0:
+        if isinstance(field, str) or isinstance(field, unicode):
+          fields = [field]
+        elif isinstance(field, list):
+          fields = fields + field
 
-            field = opt.get('field', '')
-            if len(field) > 0:
-                if isinstance(field, str) or isinstance(field, unicode):
-                    fields = [field]
-                elif isinstance(field, list):
-                    fields = fields + field
+      fields = filter(lambda x: len(x) > 0, fields)
 
-            fields = filter(lambda x: len(x) > 0, fields)
+      if len(fields) == 0:
+        fields = self._schema.names()
 
-            if len(fields) == 0:
-                fields = self._schema.names()
+      if len(fields) > 0:
+        fields = set(fields) & set(self._schema.names())
+        fields = list(fields)
 
-            if len(fields) > 0:
-                fields = set(fields) & set(self._schema.names())
-                fields = list(fields)
+      except_fields = opt.get('except_fields', [])
+      except_fields = filter(lambda x: len(x) > 0, except_fields)
 
-            except_fields = opt.get('except_fields', [])
-            except_fields = filter(lambda x: len(x) > 0, except_fields)
+      if len(except_fields) > 0:
+        fields = list(set(fields) - set(except_fields))
 
-            if len(except_fields) > 0:
-                fields = list(set(fields) - set(except_fields))
+      parser = qparser.MultifieldParser(
+          fields, self._whoosh.schema
+        , group=opt.get('group', qparser.OrGroup)
+        )
 
-            parser = qparser.MultifieldParser(
-                fields, self._whoosh.schema,
-                group=opt.get('group', qparser.OrGroup))
+      query       = parser.parse(prepped_string)
+      search_opts = self.parse_opts_searcher(opt, self._parameters)
+      results     = searcher.search(query, terms=True, **search_opts)
 
-            query = parser.parse(prepped_string)
-            search_opts = self.parse_opts_searcher(opt, self._parameters)
-            results = searcher.search(query, terms=True, **search_opts)
+      ma = defaultdict(set)
+      for f, term in results.matched_terms():
+        ma[f].add(term)
 
-            ma = defaultdict(set)
-            for f, term in results.matched_terms():
-                ma[f].add(term)
+      dic = {
+          'runtime'       : results.runtime
+        , 'cant_results'  : results.estimated_length()
+        , 'matched_terms' : {k: list(v) for k, v in ma.items()}
+        , 'facet_names'   : results.facet_names()
+        }
 
-            dic = {
-                'runtime': results.runtime,
-                'cant_results': results.estimated_length(),
-                'matched_terms': {k: list(v) for k, v in ma.items()},
-                'facet_names': results.facet_names(),
-            }
+      if dic['cant_results'] == 0 and self.to_bool(opt.get('something', False)):
+        opt['add_wildcards']  = True
+        opt['something']      = False
+        return self.search(search_string, **opt)
 
-            if dic['cant_results'] == 0 and self.to_bool(opt.get('something', False)):
-                opt['add_wildcards'] = True
-                opt['something'] = False
-                return self.search(search_string, **opt)
+      value_results = {}
 
-            value_results = {}
+      for r in results:
+        params = {k:r[k] for k in self._primary_key}
+        ans = {
+            'docnum'  : r.docnum
+          , 'pk'      : tuple(params.values())
+          , 'score'   : r.score
+        }
 
-            for r in results:
-                params = {k:r[k] for k in self._primary_key}
-                ans = {
-                    'pk': tuple(params.values()),
-                    'docnum' : r.docnum,
-                    'score': r.score,
-                }
-                
-                if self.to_bool(opt.get('include_entity', False)):
-                    entity = self._model.get(**params)
-                    dic_entity = entity.to_dict()
-                    if opt.get('use_dict', True):
-                        ans['entity'] = dic_entity
-                    else:
-                        fields_missing = set(dic_entity.keys()) - set(self._fields)
-                        ans['other_fields'] = [(k, dic_entity[k]) for k in fields_missing]
-                        ans['entity'] = [(k, dic_entity[k]) for k in self._fields]
-                    ans['model'] = self._name
-                value_results[ans['pk']] = ans
-            
-            dic["results"] = value_results.values()
-            return dic
+        if self.to_bool(opt.get('include_entity', False)):
+          entity = self._model.get(**params)
+          dic_entity = entity.to_dict()
+          if opt.get('use_dict', True):
+            ans['entity'] = dic_entity
+          else:
+            fields_missing      = set(dic_entity.keys()) - set(self._fields)
+            ans['other_fields'] = [(k, dic_entity[k]) for k in fields_missing]
+            ans['entity']       = [(k, dic_entity[k]) for k in self._fields]
+          ans['model'] = self._name
+        value_results[ans['pk']] = ans
 
-    def prep_search_string(self, search_string, add_wildcards=False):
-        """Prepares search string as a proper whoosh search string.
+      dic["results"] = value_results.values()
+      return dic
 
-        Args:
-            search_string (str): it prepares the search string and see if the lenght is correct. 
-        
-        Optional Args:
-            add_wildcards (bool): It runs a query for inexact queries. 
+  def prep_search_string(self, search_string, add_wildcards=False):
+    """Prepares search string as a proper whoosh search string.
 
-        Raises:
-            ValueError: When the search string does not have the appropriate lenght. This lenght 
-            may be changed in the config options. 
-        """
+    Args:
+      search_string (str): it prepares the search string and see if
+      the lenght is correct.
 
-        s = search_string.strip()
-        try:
-            s = unicode(s)
-        except:
-            pass
-        s = s.replace('*', '')
+    Optional Args:
+        add_wildcards (bool): It runs a query for inexact queries.
 
-        if len(s) < self._pw.search_string_min_len:
-            raise ValueError('Search string must have at least {} characters'.format(self._pw.search_string_min_len))
-        if add_wildcards:
-            s = u'*{0}*'.format(re.sub('[\s]+', '* *', s))
-        return s
+    Raises:
+      ValueError: When the search string does not have the appropriate
+      lenght. This lenght may be changed in the config options.
+    """
 
-    def to_bool(self, v):
-        if isinstance(v, bool):
-            return v
-        if isinstance(v, unicode) or isinstance(v, str):
-            return v == 'True' or v == 'true' or v == 't' or v == 'y' or v == 'yes'
-        if isinstance(v, int):
-            return bool(v)
-        return False
+    s = search_string.strip()
+    try:
+      s = unicode(s)
+    except:
+      pass
+    s = s.replace('*', '')
 
-    def parse_opts_searcher(self, opts, parameters):
-        assert isinstance(opts, dict)
-        res = {}
-        for k, v in opts.items():
-            if k in parameters:
-                typevalue = parameters[k]
-                if isinstance(typevalue, int):
-                    if isinstance(v, list):
-                        res[k] = v[0]
-                    res[k] = int(v)
-                elif isinstance(typevalue, unicode):
-                    if isinstance(v, list):
-                        res[k] = v[0]
-                    res[k] = unicode(v)
-                elif isinstance(typevalue, bool):
-                    if isinstance(v, list):
-                        res[k] = v[0]
-                    res[k] = self.to_bool(v)
-        return res
+    if len(s) < self._pw.search_string_min_len:
+      raise ValueError('Search string must have at least {} characters'
+        .format(self._pw.search_string_min_len))
+    if add_wildcards:
+      s = u'*{0}*'.format(re.sub('[\s]+', '* *', s))
+    return s
+
+  def to_bool(self, v):
+    if isinstance(v, bool):
+      return v
+    if isinstance(v, unicode) or isinstance(v, str):
+      return v == 'True' or v == 'true' or v == 't' or v == 'y' or v == 'yes'
+    if isinstance(v, int):
+      return bool(v)
+    return False
+
+  def parse_opts_searcher(self, opts, parameters):
+    assert isinstance(opts, dict)
+    res = {}
+    for k, v in opts.items():
+      if k in parameters:
+        typevalue = parameters[k]
+        if isinstance(typevalue, int):
+          if isinstance(v, list):
+              res[k] = v[0]
+          res[k] = int(v)
+        elif isinstance(typevalue, unicode):
+          if isinstance(v, list):
+              res[k] = v[0]
+          res[k] = unicode(v)
+        elif isinstance(typevalue, bool):
+          if isinstance(v, list):
+              res[k] = v[0]
+          res[k] = self.to_bool(v)
+    return res

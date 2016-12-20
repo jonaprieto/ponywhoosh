@@ -1,2 +1,0 @@
-pony
-whoosh

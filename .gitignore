@@ -46,3 +46,4 @@ venv/
 ponyindexes/
 indexes/
 docs/_build/html/html.zip
+ponywhoosh.egg-info/*

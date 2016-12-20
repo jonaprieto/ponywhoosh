@@ -4,6 +4,6 @@ include LICENSE
 include ponywhoosh *.*
 include docs/_build/html *.*
 
-include tox.ini 
+include tox.ini
 
 global-exclude *.py[co] __pycache__ *.so *.pyd
