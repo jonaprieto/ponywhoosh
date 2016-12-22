@@ -3,7 +3,7 @@
   ponywhoosh
   ~~~~~~~~~~
 
-  Makes your database over PonyORM searchable.
+  Your database now searchable.
 
   :copyright: (c) 2015-2017 by Jonathan S. Prieto & Ivan Felipe Rodriguez.
   :license: BSD (see LICENSE.md)
@@ -29,19 +29,33 @@ def read(*names, **kwargs):
 
 setup(
   , name='ponywhoosh'
-  , version="1.7"
+  , version="1.7.1"
   , url='https://github.com/compiteing/ponywhoosh'
-  , license='BSD'
-  , author='Jonathan S. Prieto. & Ivan Felipe Rodriguez'
-  , author_email='prieto.jona@gmail.com'
-  , description='Make your database over PonyORM searchable. The backend behind the Flask-PonyWhoosh.'
+  , license='MIT'
+  , author='Jonathan Prieto-Cubides & Felipe Rodriguez'
+  , author_email='jprieto9@eafit.edu.co'
+  , description='Your database now searchable. The backend behind the Flask-PonyWhoosh.'
   , long_description='%s\n%s' % (
       read('README.rst'), re.sub(':obj:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst')))
   , packages=find_packages()
   , zip_safe=False
   , include_package_data=True
   , platforms='any'
-  , keywords=['ponyorm', 'whoosh', 'search', 'searchable', 'pony' 'full-text', 'engine', 'flask-ponywhoosh']
+  , keywords=
+    [ 'elastic'
+    , 'engine'
+    , 'flask'
+    , 'flask-sqlalchemy'
+    , 'flask-whooshalchemy'
+    , 'mysql'
+    , 'pony'
+    , 'ponyorm'
+    , 'ponywhoosh'
+    , 'search'
+    , 'searchable'
+    , 'sqlite3'
+    , 'whoosh'
+    ]
   , install_requires=['pony', 'whoosh']
   , classifiers=[
       'Environment :: Web Environment'

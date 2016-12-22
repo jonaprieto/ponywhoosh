@@ -2,14 +2,14 @@ ponywhoosh
 ==========
 |PyPI Package latest release| |PyPI Package monthly downloads| |Test|
 
-Make your database over PonyORM searchable. 
+Make your database over PonyORM searchable.
 
 Install package, import and start adding what fields of your models in your database, you want to search.
 
 .. image:: https://github.com/compiteing/flask-ponywhoosh/blob/master/images/databaseconfig.gif?raw=true
    :target: https://pypi.python.org/pypi/ponywhoosh
    :scale: 70%
-   :align: center 
+   :align: center
    :alt: PonyWhoosh
 
 
@@ -23,14 +23,13 @@ Installation
 
 .. code:: python
 
-    pip install --upgrade ponywhoosh
+    pip install ponywhoosh
 
 or use the develop (unstable) version:
 
 .. code:: bash
 
     git clone https://github.com/compiteing/ponywhoosh.git
-
 
 
 .. |PyPI Package latest release| image:: http://img.shields.io/pypi/v/ponywhoosh.png?style=flat

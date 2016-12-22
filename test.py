@@ -10,7 +10,6 @@
 
 '''
 
-
 import os
 import shutil
 import tempfile
@@ -26,7 +25,6 @@ class BaseTestCases(object):
   class BaseTest(TestCase):
     def __init__(self, *args, **kwargs):
       super(BaseTestCases.BaseTest, self).__init__(*args, **kwargs)
-
 
     def setUp(self):
       self.pw       = PonyWhoosh()
@@ -61,9 +59,24 @@ class BaseTestCases(object):
       self.u2 = self.User(name=u'felipe', age=u'19')
       self.u3 = self.User(name=u'harol', age=u'16')
       self.u4 = self.User(name=u'felun', age=u'16')
-      self.a1 = self.Attribute(name=u'felun', user=self.u1, weight=u'80', sport=u'tejo')
-      self.a2 = self.Attribute(name=u'galun', user=self.u2, weight=u'75', sport=u'lucha de felinas')
-      self.a3 = self.Attribute(name=u'ejote', user=self.u3, weight=u'65', sport=u'futbol shaulin')
+      self.a1 = self.Attribute(
+          name=u'felun'
+        , user=self.u1
+        , weight=u'80'
+        , sport=u'tejo'
+        )
+      self.a2 = self.Attribute(
+          name=u'galun'
+        , user=self.u2
+        , weight=u'75'
+        , sport=u'lucha de felinas'
+        )
+      self.a3 = self.Attribute(
+          name=u'ejote'
+        , user=self.u3
+        , weight=u'65'
+        , sport=u'futbol shaulin'
+        )
 
     def tearDown(self):
       shutil.rmtree(self.pw.indexes_path, ignore_errors=True)
@@ -81,7 +94,6 @@ class BaseTestCases(object):
       found = self.User._pw_index_.search('har', something=True, include_entity=True)
       self.assertEqual(found['cant_results'], 1)
 
-
     def test_full_search_without_wildcards(self):
       self.fixtures()
 
@@ -91,17 +103,26 @@ class BaseTestCases(object):
     def test_full_search_with_wildcards(self):
       self.fixtures()
 
-      found = full_search(self.pw, "fel", add_wildcards=True, include_entity=True)
+      found = full_search(self.pw, "fel"
+        , add_wildcards=True
+        , include_entity=True
+        )
       self.assertEqual(found['cant_results'], 4)
 
     def test_fields(self):
       self.fixtures()
-      results = full_search(self.pw, "felun", include_entity=True, fields=["name"])
+      results = full_search(self.pw, "felun"
+        , include_entity=True
+        , fields=["name"]
+        )
       self.assertEqual(results['cant_results'], 2)
 
     def test_models(self):
       self.fixtures()
-      results = full_search(self.pw, "felun", include_entity=True, models=['User'])
+      results = full_search(self.pw, "felun"
+        , include_entity=True
+        , models=['User']
+        )
       self.assertEqual(results['cant_results'], 1)
 
     def test_except_field(self):
