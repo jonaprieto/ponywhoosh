@@ -28,7 +28,7 @@ def read(*names, **kwargs):
   ).read()
 
 setup(
-  , name='ponywhoosh'
+    name='ponywhoosh'
   , version="1.7.1"
   , url='https://github.com/compiteing/ponywhoosh'
   , license='MIT'
