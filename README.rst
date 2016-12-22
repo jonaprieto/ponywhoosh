@@ -1,6 +1,6 @@
 ponywhoosh
 ==========
-|PyPI Package latest release| |PyPI Package monthly downloads| |Test|
+|PyPI Package latest release| |Test|
 
 Make your database over PonyORM searchable.
 
@@ -34,7 +34,6 @@ or use the develop (unstable) version:
 
 .. |PyPI Package latest release| image:: http://img.shields.io/pypi/v/ponywhoosh.png?style=flat
    :target: https://pypi.python.org/pypi/ponywhoosh
-.. |PyPI Package monthly downloads| image:: http://img.shields.io/pypi/dm/ponywhoosh.png?style=flat
-   :target: https://pypi.python.org/pypi/ponywhoosh
+
 .. |Test| image:: https://travis-ci.org/compiteing/ponywhoosh.svg?branch=master
     :target: https://travis-ci.org/compiteing/ponywhoosh
