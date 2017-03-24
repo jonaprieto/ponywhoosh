@@ -50,7 +50,7 @@ Or using the method attached to the model as we show later but not that handy li
 
  >>> from example import *
  >>> populate_database() 
- >>> Student._pw_index_.search("smith")
+ >>> Student.search("smith")
 
 We are fan of the images. Then look at this:
 

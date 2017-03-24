@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Getting Started &mdash; Python  documentation</title>
+    <title>Getting Started &#8212; Python  documentation</title>
     
     <link rel="stylesheet" href="_static/flasky.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -23,6 +23,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="Python  documentation" href="index.html" />
     <link rel="next" title="Searching" href="quickstart.html" />
     <link rel="prev" title="Welcome to ponywhoosh’s documentation!" href="index.html" />
@@ -47,7 +49,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to ponywhoosh’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Python  documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Python  documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -60,23 +62,23 @@
 <span id="config"></span><h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<div class="code python highlight-python"><div class="highlight"><pre>pip install ponywhoosh
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">ponywhoosh</span>
 </pre></div>
 </div>
 <p>or</p>
-<div class="code bash highlight-python"><div class="highlight"><pre>git clone https://github.com/jonaprieto/PonyWhoosh.git
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">jonaprieto</span><span class="o">/</span><span class="n">PonyWhoosh</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="ponywhoosh-configuration">
 <h2>PonyWhoosh Configuration<a class="headerlink" href="#ponywhoosh-configuration" title="Permalink to this headline">¶</a></h2>
 <p>Initialize the <code class="docutils literal"><span class="pre">Ponywhoosh</span></code> object and if you want, set up some general configurations.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">ponywhoosh</span> <span class="kn">import</span> <span class="n">Ponywhoosh</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ponywhoosh</span> <span class="k">import</span> <span class="n">Ponywhoosh</span>
 <span class="n">pw</span> <span class="o">=</span> <span class="n">PonyWhoosh</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">pw</span><span class="o">.</span><span class="n">search_string_min_len</span><span class="o">=</span> <span class="mi">3</span>
-<span class="n">pw</span><span class="o">.</span><span class="n">indexes_path</span><span class="o">=</span><span class="s">&#39;ponyindexes&#39;</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">pw</span><span class="o">.</span><span class="n">search_string_min_len</span><span class="o">=</span> <span class="mi">3</span>
+<span class="n">pw</span><span class="o">.</span><span class="n">indexes_path</span><span class="o">=</span><span class="s1">&#39;ponyindexes&#39;</span>
 <span class="n">pw</span><span class="o">.</span><span class="n">writer_timeout</span><span class="o">=</span> <span class="mi">2</span>
 </pre></div>
 </div>
@@ -87,22 +89,22 @@
 <p>Import <code class="docutils literal"><span class="pre">ponywhoosh</span></code> in your source code where you have the database entities definitions.</p>
 <p><a class="reference external" href="https://pypi.python.org/pypi/Flask-PonyWhoosh"><img alt="database" src="https://github.com/jonaprieto/flask-ponywhoosh/blob/master/images/databaseconfig.gif?raw=true" /></a></p>
 <p>As we show above, the lines will be look like these:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">PonyWhoosh</span> <span class="kn">import</span> <span class="n">PonyWhoosh</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PonyWhoosh</span> <span class="k">import</span> <span class="n">PonyWhoosh</span>
 <span class="n">pw</span> <span class="o">=</span> <span class="n">PonyWhoosh</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>For each entity wrap it up with the decorator
 <code class="docutils literal"><span class="pre">&#64;pw.register_model(...)</span></code>. Specifying what attributes would be searcheables.</p>
 <p>For example:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="nd">@pw.register_model</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span><span class="s">&#39;age&#39;</span><span class="p">,</span> <span class="n">sortable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>  <span class="n">stored</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="nd">@pw</span><span class="o">.</span><span class="n">register_model</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="n">sortable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="n">stored</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Entity</span><span class="p">):</span>
-    <span class="n">_table_</span> <span class="o">=</span> <span class="s">&#39;User&#39;</span>
-    <span class="nb">id</span> <span class="o">=</span> <span class="n">PrimaryKey</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">auto</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="n">Required</span><span class="p">(</span><span class="nb">unicode</span><span class="p">)</span>
-    <span class="n">tipo</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">(</span><span class="nb">unicode</span><span class="p">)</span>
+    <span class="n">_table_</span> <span class="o">=</span> <span class="s1">&#39;User&#39;</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">PrimaryKey</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">auto</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">Required</span><span class="p">(</span><span class="n">unicode</span><span class="p">)</span>
+    <span class="n">tipo</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">(</span><span class="n">unicode</span><span class="p">)</span>
     <span class="n">age</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-    <span class="n">entries</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="s">&quot;Entry&quot;</span><span class="p">)</span>
-    <span class="n">attributes</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="s">&quot;Attributes&quot;</span><span class="p">)</span>
+    <span class="n">entries</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="s2">&quot;Entry&quot;</span><span class="p">)</span>
+    <span class="n">attributes</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="s2">&quot;Attributes&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>As you could see in the previous example, you should declare as <cite>strings</cite> these fields where you want search in the future and make them searcheables (<code class="docutils literal"><span class="pre">name</span></code>, <code class="docutils literal"><span class="pre">age</span></code>, etc.). All the parameters from <code class="docutils literal"><span class="pre">whoosh</span></code> are available, You just have to listed separating them with commas: <code class="docutils literal"><span class="pre">sortable</span></code>, <code class="docutils literal"><span class="pre">stored</span></code>, <code class="docutils literal"><span class="pre">scored</span></code>, etc. Refer to <code class="docutils literal"><span class="pre">whoosh</span></code> documentation for further explanations on the application of these parameters.</p>
@@ -144,14 +146,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
