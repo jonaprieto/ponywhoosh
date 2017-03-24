@@ -16,14 +16,14 @@ import re
 import sys
 import whoosh
 
-from collections                import defaultdict
-from index                      import Index    as PonyWhooshIndex
-from pony                       import orm
-from pony.orm.serialization     import to_dict
-from pprint                     import pprint
-from whoosh                     import fields   as whoosh_module_fields
-from whoosh                     import index    as whoosh_module_index
-from whoosh                     import qparser
+from collections             import defaultdict
+from index                   import Index  as PonyWhooshIndex
+from pony                    import orm
+from pony.orm.serialization  import to_dict
+from pprint                  import pprint
+from whoosh                  import fields as whoosh_module_fields
+from whoosh                  import index  as whoosh_module_index
+from whoosh                  import qparser
 
 __all__   = ['PonyWhoosh']
 basedir   = os.path.abspath(os.path.dirname(__file__))
@@ -105,9 +105,8 @@ class PonyWhoosh(object):
         **kw: The options for each field, sortedby, stored ...
     """
 
-    index = PonyWhooshIndex(pw=self)
-
-    index._kw = kw
+    index         = PonyWhooshIndex(pw=self)
+    index._kw     = kw
     index._fields = fields
 
     def inner(model):
@@ -184,8 +183,8 @@ class PonyWhoosh(object):
         Returns:
             obj (EntityInstance): The same object as the input.
         """
-        writer = index._whoosh.writer(timeout=self.writer_timeout)
 
+        writer   = index._whoosh.writer(timeout=self.writer_timeout)
         dict_obj = obj.to_dict()
 
         def dumps(v):
@@ -210,10 +209,10 @@ class PonyWhoosh(object):
         writer.commit()
         return obj._after_save_
 
-      index._model        = model
-      model._after_save_  = _middle_save_
-      model._pw_index_    = index
-      model.search        =  model._pw_index_.search
+      index._model       = model
+      model._after_save_ = _middle_save_
+      model._pw_index_   = index
+      model.search       =  model._pw_index_.search
       return model
     return inner
 
@@ -237,10 +236,10 @@ class PonyWhoosh(object):
         (dict): A python dictionary with the results.
     """
     output = {
-        'cant_results'    : 0
-      , 'matched_terms'   : defaultdict(set)
-      , 'results'         : {}
-      , 'runtime'         : 0
+        'cant_results'  : 0
+      , 'matched_terms' : defaultdict(set)
+      , 'results'       : {}
+      , 'runtime'       : 0
     }
 
     indexes = self.indexes()
@@ -274,8 +273,8 @@ class PonyWhoosh(object):
           , 'matched_terms' : res['matched_terms']
         }
         for k, ts in res['matched_terms'].items():
-            for t in ts:
-              ma[k].add(t)
+          for t in ts:
+            ma[k].add(t)
 
     output['cant_results']  = cant
     output['matched_terms'] = {k: list(v) for k, v in ma.items()}

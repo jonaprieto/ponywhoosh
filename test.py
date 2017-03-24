@@ -14,10 +14,10 @@ import os
 import shutil
 import tempfile
 
-from pony.orm           import *
-from ponywhoosh         import PonyWhoosh, search, full_search
-from pprint             import pprint
-from unittest           import TestCase
+from pony.orm    import *
+from ponywhoosh  import PonyWhoosh, search, full_search
+from pprint      import pprint
+from unittest    import TestCase
 
 
 class BaseTestCases(object):
@@ -27,24 +27,23 @@ class BaseTestCases(object):
       super(BaseTestCases.BaseTest, self).__init__(*args, **kwargs)
 
     def setUp(self):
-      self.pw       = PonyWhoosh()
+      self.pw               = PonyWhoosh()
       self.pw.indexes_path  = tempfile.mkdtemp()
       self.pw.debug         = False
-
-      self.db = Database()
+      self.db               = Database()
 
       @self.pw.register_model('name', 'age', stored=True, sortable=True)
       class User(self.db.Entity):
-        id    = PrimaryKey(int, auto=True)
-        name  = Required(unicode)
-        age   = Optional(int)
+        id         = PrimaryKey(int, auto=True)
+        name       = Required(unicode)
+        age        = Optional(int)
         attributes = Set('Attribute')
 
       @self.pw.register_model('weight', 'sport', 'name', stored=True, sortable=True)
       class Attribute(self.db.Entity):
-        id    = PrimaryKey(int, auto=True)
-        name  = Optional(unicode)
-        user  = Optional("User")
+        id      = PrimaryKey(int, auto=True)
+        name    = Optional(unicode)
+        user    = Optional("User")
         weight  = Required(unicode)
         sport   = Optional(unicode)
 

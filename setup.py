@@ -10,15 +10,15 @@
 
 '''
 
-from __future__             import absolute_import, print_function
+from __future__  import absolute_import, print_function
 
 import io
 import os
 import re
 
-from glob                   import glob
-from os.path                import basename, dirname, join, relpath, splitext
-from setuptools             import find_packages, setup
+from glob       import glob
+from os.path    import basename, dirname, join, relpath, splitext
+from setuptools import find_packages, setup
 
 
 def read(*names, **kwargs):
@@ -35,8 +35,7 @@ setup(
   , author='Jonathan Prieto-Cubides & Felipe Rodriguez'
   , author_email='jprieto9@eafit.edu.co'
   , description='Your database now searchable. The backend behind the Flask-PonyWhoosh.'
-  , long_description='%s\n%s' % (
-      read('README.rst'), re.sub(':obj:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst')))
+  , long_description='%s' % ( read('README.rst') )
   , packages=find_packages()
   , zip_safe=False
   , include_package_data=True

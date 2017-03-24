@@ -13,22 +13,22 @@
 
 import re
 
-from collections                import defaultdict
-from pony                       import orm
-from pprint                     import pprint
-from whoosh                     import fields as whoosh_module_fields
-from whoosh                     import qparser
+from collections  import defaultdict
+from pony         import orm
+from pprint       import pprint
+from whoosh       import fields as whoosh_module_fields
+from whoosh       import qparser
 
 
 class Index(object):
 
   debug = False
   _parameters = {
-      'limit'     : 0
-    , 'optimize'  : False
-    , 'reverse'   : False
-    , 'scored'    : u''
-    , 'sortedby'  : u''
+      'limit'    : 0
+    , 'optimize' : False
+    , 'reverse'  : False
+    , 'scored'   : u''
+    , 'sortedby' : u''
   }
 
   @property
@@ -57,7 +57,7 @@ class Index(object):
     Args:
         pw (PonyWhoosh): Initializes of index.
     """
-    self._pw = pw
+    self._pw   = pw
     self.debug = pw.debug
 
   def add_field(self, fieldname, fieldspec=whoosh_module_fields.TEXT):
@@ -118,8 +118,8 @@ class Index(object):
         the model and fields registered.
     """
 
-    doc_count = self._whoosh.doc_count()
-    objs      = orm.count(e for e in self._model)
+    doc_count   = self._whoosh.doc_count()
+    objs        = orm.count(e for e in self._model)
 
     field_names = set(self._schema_attrs.keys())
     missings    = set(self._whoosh.schema.names())
@@ -214,8 +214,8 @@ class Index(object):
         }
 
       if dic['cant_results'] == 0 and self.to_bool(opt.get('something', False)):
-        opt['add_wildcards']  = True
-        opt['something']      = False
+        opt['add_wildcards'] = True
+        opt['something']     = False
         return self.search(search_string, **opt)
 
       value_results = {}
@@ -223,14 +223,15 @@ class Index(object):
       for r in results:
         params = {k:r[k] for k in self._primary_key}
         ans = {
-            'docnum'  : r.docnum
-          , 'pk'      : tuple(params.values())
-          , 'score'   : r.score
+            'docnum' : r.docnum
+          , 'pk'     : tuple(params.values())
+          , 'score'  : r.score
         }
 
         if self.to_bool(opt.get('include_entity', False)):
-          entity = self._model.get(**params)
+          entity     = self._model.get(**params)
           dic_entity = entity.to_dict()
+
           if opt.get('use_dict', True):
             ans['entity'] = dic_entity
           else:
