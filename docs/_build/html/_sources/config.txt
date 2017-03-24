@@ -16,7 +16,7 @@ or
 
 .. code:: bash
 
-    git clone https://github.com/compiteing/PonyWhoosh.git
+    git clone https://github.com/jonaprieto/PonyWhoosh.git
 
 
 
@@ -83,9 +83,9 @@ As you could see in the previous example, you should declare as `strings` these 
 
 
 
-.. |appconfig| image:: https://github.com/compiteing/flask-ponywhoosh/blob/master/images/flaskappconfig.gif?raw=true
+.. |appconfig| image:: https://github.com/jonaprieto/flask-ponywhoosh/blob/master/images/flaskappconfig.gif?raw=true
    :target: https://pypi.python.org/pypi/Flask-PonyWhoosh
 
-.. |database| image:: https://github.com/compiteing/flask-ponywhoosh/blob/master/images/databaseconfig.gif?raw=true
+.. |database| image:: https://github.com/jonaprieto/flask-ponywhoosh/blob/master/images/databaseconfig.gif?raw=true
    :target: https://pypi.python.org/pypi/Flask-PonyWhoosh
 

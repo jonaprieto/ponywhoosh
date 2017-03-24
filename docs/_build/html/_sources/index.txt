@@ -5,7 +5,7 @@ Welcome to ponywhoosh's documentation!
  |PyPI Package latest release| |PyPI Package monthly downloads| |Test|
 
 Make your database PonyORM searchable no matter what application you use.
-Source code and issue tracking at http://github.com/compiteing/ponywhoosh.
+Source code and issue tracking at http://github.com/jonaprieto/ponywhoosh.
 
  
 
@@ -20,7 +20,7 @@ Source code and issue tracking at http://github.com/compiteing/ponywhoosh.
 
  .. .. code:: bash
 
- ..     git clone https://github.com/compiteing/ponywhoosh.git
+ ..     git clone https://github.com/jonaprieto/ponywhoosh.git
 
 
 

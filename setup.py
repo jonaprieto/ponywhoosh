@@ -29,8 +29,8 @@ def read(*names, **kwargs):
 
 setup(
     name='ponywhoosh'
-  , version="1.7.1"
-  , url='https://github.com/compiteing/ponywhoosh'
+  , version="1.7.2"
+  , url='https://github.com/jonaprieto/ponywhoosh'
   , license='MIT'
   , author='Jonathan Prieto-Cubides & Felipe Rodriguez'
   , author_email='jprieto9@eafit.edu.co'

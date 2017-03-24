@@ -12,7 +12,7 @@ Your very first time
 
 The first time, after the configurations statements, we are performing a basic search over the entire database, that is, looking for a string query in each table, model from the database that were indexed. 
 
-The examples in this page will be based on the source code ``example.py`` available  `here <https://raw.githubusercontent.com/compiteing/ponywhoosh/master/example.py>`_.
+The examples in this page will be based on the source code ``example.py`` available  `here <https://raw.githubusercontent.com/jonaprieto/ponywhoosh/master/example.py>`_.
 
 Let's start opening a terminal, a python console and find out how to perform a search using the ``search()``method.
 
@@ -260,25 +260,25 @@ The ``use_dict`` option
 
 If you want that the  items look like a list rather than a dictionary. You can use the option use_dict: this option by default is set True. However if you choose false, results will look something like ('field', 'result')
   
-.. |model| image:: https://github.com/compiteing/ponywhoosh/blob/master/images/model.gif?raw=true
+.. |model| image:: https://github.com/jonaprieto/ponywhoosh/blob/master/images/model.gif?raw=true
    :target: https://pypi.python.org/pypi/PonyWhoosh
 
-.. |search| image:: https://github.com/compiteing/ponywhoosh/blob/master/images/search.gif?raw=true
+.. |search| image:: https://github.com/jonaprieto/ponywhoosh/blob/master/images/search.gif?raw=true
    :target: https://pypi.python.org/pypi/PonyWhoosh
 
-.. |wildcards| image:: https://github.com/compiteing/ponywhoosh/blob/master/images/wildcards.gif?raw=true
+.. |wildcards| image:: https://github.com/jonaprieto/ponywhoosh/blob/master/images/wildcards.gif?raw=true
    :target: https://pypi.python.org/pypi/PonyWhoosh
 
-.. |byfield| image:: https://github.com/compiteing/ponywhoosh/blob/master/images/byfield.gif?raw=true
+.. |byfield| image:: https://github.com/jonaprieto/ponywhoosh/blob/master/images/byfield.gif?raw=true
    :target: https://pypi.python.org/pypi/Flask-PonyWhoosh
-.. |database| image:: https://github.com/compiteing/flask-ponywhoosh/blob/master/images/databaseconfig.gif?raw=true
+.. |database| image:: https://github.com/jonaprieto/flask-ponywhoosh/blob/master/images/databaseconfig.gif?raw=true
    :target: https://pypi.python.org/pypi/Flask-PonyWhoosh
 
-.. |usedict| image:: https://github.com/compiteing/ponywhoosh/blob/master/images/use_dict.gif?raw=true
+.. |usedict| image:: https://github.com/jonaprieto/ponywhoosh/blob/master/images/use_dict.gif?raw=true
    :target: https://pypi.python.org/pypi/Flask-PonyWhoosh
    
-.. |first| image:: https://github.com/compiteing/flask-ponywhoosh/blob/master/images/searchfirsttime.gif?raw=true
+.. |first| image:: https://github.com/jonaprieto/flask-ponywhoosh/blob/master/images/searchfirsttime.gif?raw=true
    :target: https://pypi.python.org/pypi/Flask-PonyWhoosh
 
-.. |firsttime| image:: https://github.com/compiteing/ponywhoosh/blob/master/images/example.gif?raw=true
+.. |firsttime| image:: https://github.com/jonaprieto/ponywhoosh/blob/master/images/example.gif?raw=true
    :target: https://pypi.python.org/pypi/PonyWhoosh

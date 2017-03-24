@@ -6,7 +6,7 @@ Make your database over PonyORM searchable.
 
 Install package, import and start adding what fields of your models in your database, you want to search.
 
-.. image:: https://github.com/compiteing/flask-ponywhoosh/blob/master/images/databaseconfig.gif?raw=true
+.. image:: https://github.com/jonaprieto/flask-ponywhoosh/blob/master/images/databaseconfig.gif?raw=true
    :target: https://pypi.python.org/pypi/ponywhoosh
    :scale: 70%
    :align: center
@@ -29,11 +29,11 @@ or use the develop (unstable) version:
 
 .. code:: bash
 
-    git clone https://github.com/compiteing/ponywhoosh.git
+    git clone https://github.com/jonaprieto/ponywhoosh.git
 
 
 .. |PyPI Package latest release| image:: http://img.shields.io/pypi/v/ponywhoosh.png?style=flat
    :target: https://pypi.python.org/pypi/ponywhoosh
 
-.. |Test| image:: https://travis-ci.org/compiteing/ponywhoosh.svg?branch=master
-    :target: https://travis-ci.org/compiteing/ponywhoosh
+.. |Test| image:: https://travis-ci.org/jonaprieto/ponywhoosh.svg?branch=master
+    :target: https://travis-ci.org/jonaprieto/ponywhoosh

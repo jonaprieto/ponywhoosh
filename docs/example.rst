@@ -139,5 +139,5 @@ Here is the source code of the example file.
 	    populate_database()
 
 
-.. |first| image:: https://github.com/compiteing/ponywhoosh/blob/master/images/example.gif?raw=true
+.. |first| image:: https://github.com/jonaprieto/ponywhoosh/blob/master/images/example.gif?raw=true
    :target: https://pypi.python.org/pypi/Flask-PonyWhoosh
