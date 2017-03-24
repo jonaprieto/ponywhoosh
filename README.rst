@@ -30,6 +30,8 @@ or use the develop (unstable) version:
 .. code:: bash
 
     git clone https://github.com/jonaprieto/ponywhoosh.git
+    cd ponywhoosh
+    python setup.py install
 
 
 .. |PyPI Package latest release| image:: http://img.shields.io/pypi/v/ponywhoosh.png?style=flat
