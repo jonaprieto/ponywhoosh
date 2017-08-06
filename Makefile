@@ -14,13 +14,13 @@ clean:
 .PHONY: install-py2
 install-py2 :
 		make clean
-		python3 setup.py install
+		python2 setup.py install
 
 
 .PHONY: test-py2
 test-py2:
 		make install-py2
-		python2.7 -m unittest test
+		python2 -m unittest test
 
 # ========= Python 3 ===============================================
 

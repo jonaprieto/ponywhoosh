@@ -10,6 +10,9 @@
 
 '''
 
+from __future__              import absolute_import
+from __future__              import division
+from __future__              import print_function
 
 import os
 import re
@@ -17,7 +20,7 @@ import sys
 import whoosh
 
 from collections             import defaultdict
-from .index                   import Index  as PonyWhooshIndex
+from .index                  import Index  as PonyWhooshIndex
 from pony                    import orm
 from pony.orm.serialization  import to_dict
 from pprint                  import pprint
@@ -191,8 +194,12 @@ class PonyWhoosh(object):
           if isinstance(v, int):
             return str(v)
           if isinstance(v, float):
-            # return '%.9f' % v
-            return int(float(v))
+            # if sys.version_info[0] < 3:
+              # print("asdfasdfasdf.......")
+              return '%.9f' % v
+            # else:
+              # print("*********")
+              # return int(float(v))
           return str(v)
 
         attrs = {}

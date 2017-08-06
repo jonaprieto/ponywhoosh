@@ -9,8 +9,11 @@
   :license: MIT (see LICENSE.md)
 
 '''
+from __future__  import absolute_import
+from __future__  import division
+from __future__  import print_function
 
-from pony                       import orm
+from pony        import orm
 
 @orm.db_session
 def search(model, *arg, **kw):
