@@ -154,7 +154,7 @@ def populate_database():
     )
   s1 = Student(
       name='John Smith'
-    , dob=date(1991, 3, 20)
+    , dob=date(1990, 11, 26)
     , tel='123-456'
     , gpa=3
     , group=g101

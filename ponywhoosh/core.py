@@ -191,7 +191,8 @@ class PonyWhoosh(object):
           if isinstance(v, int):
             return str(v)
           if isinstance(v, float):
-            return '%.9f' % v
+            # return '%.9f' % v
+            return int(float(v))
           return str(v)
 
         attrs = {}
