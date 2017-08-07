@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Searching &#8212; Python  documentation</title>
+    
+    <link rel="stylesheet" href="_static/flasky.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="Python  documentation" href="index.html" />
+    <link rel="next" title="A simple example" href="example.html" />
+    <link rel="prev" title="Getting Started" href="config.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example.html" title="A simple example"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="config.html" title="Getting Started"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Python  documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="searching">
+<span id="quickstart"></span><h1>Searching<a class="headerlink" href="#searching" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="your-very-first-time">
+<h2>Your very first time<a class="headerlink" href="#your-very-first-time" title="Permalink to this headline">¶</a></h2>
+<p>The first time, after the configurations statements, we are performing a basic search over the entire database, that is, looking for a string query in each table, model from the database that were indexed.</p>
+<p>The examples in this page will be based on the source code <code class="docutils literal"><span class="pre">example.py</span></code> available  <a class="reference external" href="https://raw.githubusercontent.com/jonaprieto/ponywhoosh/master/example.py">here</a>.</p>
+<p>Let&#8217;s start opening a terminal, a python console and find out how to perform a search using the <a href="#id1"><span class="problematic" id="id2">``</span></a>search()``method.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span>$ python
+</pre></div>
+</div>
+<p>and then type for us these lines:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">example</span> <span class="k">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">populate_database</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pw</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;smith&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, let us suppose  we are looking for the word &#8220;applied&#8221; but this time, we want look up just in the model <code class="docutils literal"><span class="pre">Student</span></code>. This is how we can do that:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">example</span> <span class="k">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">populate_database</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ponywhoosh</span> <span class="k">import</span> <span class="n">search</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">search</span><span class="p">(</span><span class="n">Student</span><span class="p">,</span> <span class="s2">&quot;smith&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The above code tells you that you can actually perform a search on a specific model as long as you import the method <code class="docutils literal"><span class="pre">search</span></code> from the package, with this line:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ponywhoosh</span> <span class="k">import</span> <span class="n">search</span>
+</pre></div>
+</div>
+<p>Or using the method attached to the model as we show later but not that handy like above.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">example</span> <span class="k">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">populate_database</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Student</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;smith&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We are fan of the images. Then look at this:</p>
+<p><a class="reference external" href="https://pypi.python.org/pypi/PonyWhoosh"><img alt="firsttime" src="https://github.com/jonaprieto/ponywhoosh/blob/master/images/example.gif?raw=true" /></a></p>
+<p>However if you&#8217;d rather  prefer to &#8220;see&#8221; the results in better way, may be with a browser. For this reaseon, we have developed another package over <cite>Flask</cite> web framework, <a class="reference external" href="https://pypi.python.org/pypi/Flask-PonyWhoosh">Flask-PonyWhoosh</a>  package. After installed it, you may access to the route <code class="docutils literal"><span class="pre">/ponywhoosh/</span></code> available when you run the server.</p>
+</div>
+<div class="section" id="our-search-master-method">
+<h2>Our <code class="docutils literal"><span class="pre">search</span></code> master method<a class="headerlink" href="#our-search-master-method" title="Permalink to this headline">¶</a></h2>
+<p>The function <code class="docutils literal"><span class="pre">search()</span></code> takes up to three arguments.
+1. A ponymodel, the databse entity where you want to perform the search.
+2. The <code class="docutils literal"><span class="pre">search_string</span></code>, what  you are looking for; and,
+3. The arguments, some additional options for more refined searching.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">search</span><span class="p">(</span><span class="n">PonyModel</span><span class="p">,</span> <span class="s2">&quot;query&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://pypi.python.org/pypi/Flask-PonyWhoosh"><img alt="first" src="https://github.com/jonaprieto/flask-ponywhoosh/blob/master/images/searchfirsttime.gif?raw=true" /></a></p>
+<p>For example, if  you want  the results to be sorted by some specific searcheable field,
+you have to indicate so, by adding the argument <code class="docutils literal"><span class="pre">sortedby=&quot;field&quot;</span></code>.</p>
+<p>In this case the search results object would show as a score the value of the item you choose for sorting. Please note that in order for
+one field to be sortable, you must indicate it when you are registering
+the model. (Refer to the <em>Usage</em> section above)</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">example</span> <span class="k">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ponywhoosh</span> <span class="k">import</span> <span class="n">search</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">search</span><span class="p">(</span><span class="n">User</span><span class="p">,</span><span class="s2">&quot;harol&quot;</span><span class="p">,</span> <span class="n">sortedby</span><span class="o">=</span><span class="s2">&quot;age&quot;</span><span class="p">)</span>
+<span class="go">{&#39;cant_results&#39;: 2,</span>
+<span class="go"> &#39;facet_names&#39;: [],</span>
+<span class="go"> &#39;matched_terms&#39;: {&#39;name&#39;: [&#39;felipe&#39;]},</span>
+<span class="go"> &#39;results&#39;: [{&#39;docnum&#39;: 4L,</span>
+<span class="go">              &#39;rank&#39;: 0,</span>
+<span class="go">              &#39;pk&#39; : 5,,</span>
+<span class="go">              &#39;score&#39;: &#39;19&#39;},</span>
+<span class="go">             {&#39;docnum&#39;: 11L,</span>
+<span class="go">              &#39;rank&#39;: 1,</span>
+<span class="go">              &#39;pk&#39; : 12,,</span>
+<span class="go">              &#39;score&#39;: &#39;19&#39;}],</span>
+<span class="go"> &#39;runtime&#39;: 0.0012810230255126953}</span>
+</pre></div>
+</div>
+<p>In synthesis, the options available are: <code class="docutils literal"><span class="pre">sortedby</span></code>, <code class="docutils literal"><span class="pre">scored</span></code>, <code class="docutils literal"><span class="pre">limit</span></code>, <code class="docutils literal"><span class="pre">optimize</span></code>, <code class="docutils literal"><span class="pre">reverse</span></code>. Which are widely described in the whoosh documentation.</p>
+</div>
+<div class="section" id="ponymodel-pw-index-syntax">
+<h2><code class="docutils literal"><span class="pre">PonyModel._pw_index_.</span></code> syntax<a class="headerlink" href="#ponymodel-pw-index-syntax" title="Permalink to this headline">¶</a></h2>
+<p>There are some special features avalaible for models from the database. You just have to call the model <code class="docutils literal"><span class="pre">PonyModel._pw_index_.</span></code>:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">add_field</span></code>: This function is to add a desired field in the index.</li>
+<li><code class="docutils literal"><span class="pre">charge_documents</span></code>: This function let you charge an index from an  existing database.</li>
+<li><code class="docutils literal"><span class="pre">delete_documents</span></code>: This function deletes all the documents stored in certain whoosh index.</li>
+<li><code class="docutils literal"><span class="pre">delete_field</span></code>: This function works in case that you want to erase a determined field from a schema.</li>
+<li><code class="docutils literal"><span class="pre">update_documents</span></code>: This function deletes all the documents and recharges them again.</li>
+<li><code class="docutils literal"><span class="pre">counts</span></code>: This function counts all the documents existing in an index.</li>
+</ul>
+</div>
+<div class="section" id="searching-by-field">
+<h2>Searching by field<a class="headerlink" href="#searching-by-field" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://pypi.python.org/pypi/Flask-PonyWhoosh"><img alt="byfield" src="https://github.com/jonaprieto/ponywhoosh/blob/master/images/byfield.gif?raw=true" /></a></p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">search</span><span class="p">(</span><span class="n">PonyModel</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s2">&quot;field_name&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>By default the function <code class="docutils literal"><span class="pre">search()</span></code> performs a multifield parser query, i.e.  you will be searching in all the fields you have declared when you registered the model. However, sometimes you would like to perform searching in just one or some of all the fields.
+For these reasons we implemented the following extra options: The first one is refered as <code class="docutils literal"><span class="pre">field</span></code> all you have to do is indicate in which field you want to search. The output would be a results object containing only the information found in that field. And <code class="docutils literal"><span class="pre">fields</span></code> where you should write a list with all the fields you want to search.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">search</span><span class="p">(</span><span class="n">User</span><span class="p">,</span><span class="s2">&quot;harol&quot;</span><span class="p">,</span><span class="n">field</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
+<span class="go">     {&#39;cant_results&#39;: 4,</span>
+<span class="go">     &#39;facet_names&#39;: [],</span>
+<span class="go">     &#39;matched_terms&#39;: {&#39;name&#39;: [&#39;harol&#39;]},</span>
+<span class="go">     &#39;results&#39;: [{&#39;docnum&#39;: 1L,</span>
+<span class="go">                  &#39;pk&#39;: u&#39;7&#39;,</span>
+<span class="go">                  &#39;rank&#39;: 0,</span>
+<span class="go">                  &#39;score&#39;: 2.0296194171811583},</span>
+<span class="go">                 {&#39;docnum&#39;: 5L,</span>
+<span class="go">                  &#39;pk&#39;: u&#39;6&#39;,</span>
+<span class="go">                  &#39;rank&#39;: 1,</span>
+<span class="go">                  &#39;score&#39;: 2.0296194171811583},</span>
+<span class="go">                 {&#39;docnum&#39;: 12L,</span>
+<span class="go">                  &#39;pk&#39;: u&#39;13&#39;,</span>
+<span class="go">                  &#39;rank&#39;: 2,</span>
+<span class="go">                  &#39;score&#39;: 2.0296194171811583},</span>
+<span class="go">                 {&#39;docnum&#39;: 13L,</span>
+<span class="go">                  &#39;pk&#39;: u&#39;14&#39;,</span>
+<span class="go">                  &#39;rank&#39;: 3,</span>
+<span class="go">                  &#39;score&#39;: 2.0296194171811583}],</span>
+<span class="go">     &#39;runtime&#39;: 0.005359172821044922}</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">search</span><span class="p">(</span><span class="n">Attribute</span><span class="p">,</span><span class="s2">&quot;tejo&quot;</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sport&quot;</span><span class="p">,</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
+<span class="go">    {&#39;cant_results&#39;: 4,</span>
+<span class="go">     &#39;facet_names&#39;: [],</span>
+<span class="go">     &#39;matched_terms&#39;: {&#39;name&#39;: [&#39;tejo&#39;], &#39;sport&#39;: [&#39;tejo&#39;]},</span>
+<span class="go">     &#39;results&#39;: [{&#39;docnum&#39;: 1L,</span>
+<span class="go">                  &#39;pk&#39;: u&#39;7&#39;,</span>
+<span class="go">                  &#39;rank&#39;: 0,</span>
+<span class="go">                  &#39;score&#39;: 5.500610730717037},</span>
+<span class="go">                 {&#39;docnum&#39;: 6L,</span>
+<span class="go">                  &#39;pk&#39;: u&#39;1&#39;,</span>
+<span class="go">                  &#39;rank&#39;: 1,</span>
+<span class="go">                  &#39;score&#39;: 5.500610730717037}],</span>
+<span class="go">     &#39;runtime&#39;: 0.006212949752807617}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="fancy-add-wildcards-and-something-options">
+<h2>Fancy <code class="docutils literal"><span class="pre">add_wildcards</span></code> and <code class="docutils literal"><span class="pre">something</span></code> options<a class="headerlink" href="#fancy-add-wildcards-and-something-options" title="Permalink to this headline">¶</a></h2>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">search</span><span class="p">(</span><span class="n">PonyModel</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">add_wildcards</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://pypi.python.org/pypi/PonyWhoosh"><img alt="wildcards" src="https://github.com/jonaprieto/ponywhoosh/blob/master/images/wildcards.gif?raw=true" /></a></p>
+<p>Whoosh  sets a wildcard <code class="docutils literal"><span class="pre">*</span></code>,``?``,``!`` by default to perform search for inexact terms, however sometimes  is desirable to search by exact terms instead. For this reason we added two more options: <code class="docutils literal"><span class="pre">add_wildcards</span></code> and <code class="docutils literal"><span class="pre">something</span></code>.</p>
+<p>The option <code class="docutils literal"><span class="pre">add_wildcards</span></code> (by default <code class="docutils literal"><span class="pre">False</span></code>)  is a boolean argument that tells the searcher whether it should or not include wild cards. For example, if you want to search &#8220;harol&#8221; when <code class="docutils literal"><span class="pre">add_wildcards=False</span></code>, and you search by &#8220;har&#8221; the results would be 0. If <code class="docutils literal"><span class="pre">add_wildcards=True</span></code> , then &#8220;har&#8221; would be fair enough to get the result &#8220;harol&#8221;  because searching was performed  using wild cards.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">search</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="s2">&quot;har&quot;</span><span class="p">,</span> <span class="n">add_wildcards</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">  {&#39;cant_results&#39;: 0,</span>
+<span class="go">   &#39;facet_names&#39;: [],</span>
+<span class="go">   &#39;matched_terms&#39;: {},</span>
+<span class="go">   &#39;results&#39;: [],</span>
+<span class="go">   &#39;runtime&#39;: 0.0003230571746826172</span>
+<span class="go">   }</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">search</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="s2">&quot;har&quot;</span><span class="p">,</span> <span class="n">add_wildcards</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">  {&#39;cant_results&#39;: 4,</span>
+<span class="go">   &#39;facet_names&#39;: [],</span>
+<span class="go">   &#39;matched_terms&#39;: {&#39;name&#39;: [&#39;harol&#39;]},</span>
+<span class="go">   &#39;results&#39;: [{&#39;docnum&#39;: 1L,</span>
+<span class="go">                &#39;pk&#39;: u&#39;7&#39;,</span>
+<span class="go">                &#39;rank&#39;: 0,</span>
+<span class="go">                &#39;score&#39;: 2.0296194171811583},</span>
+<span class="go">               {&#39;docnum&#39;: 5L,</span>
+<span class="go">                &#39;pk&#39;: u&#39;6&#39;,</span>
+<span class="go">                &#39;rank&#39;: 1,</span>
+<span class="go">                &#39;score&#39;: 2.0296194171811583},</span>
+<span class="go">               {&#39;docnum&#39;: 12L,</span>
+<span class="go">                &#39;pk&#39;: u&#39;13&#39;,</span>
+<span class="go">                &#39;rank&#39;: 2,</span>
+<span class="go">                &#39;score&#39;: 2.0296194171811583},</span>
+<span class="go">               {&#39;docnum&#39;: 13L,</span>
+<span class="go">                &#39;pk&#39;: u&#39;14&#39;,</span>
+<span class="go">                &#39;rank&#39;: 3,</span>
+<span class="go">                &#39;score&#39;: 2.0296194171811583}],</span>
+<span class="go">   &#39;runtime&#39;: 0.014926910400390625}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">something=True</span></code> option, would run first a search with
+<code class="docutils literal"><span class="pre">add_wildcards=False</span></code> value, but in case results are empty it would automatically run a search adding wildcards to the result.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">search</span><span class="p">(</span><span class="n">Attribute</span><span class="p">,</span> <span class="s2">&quot;tejo&quot;</span><span class="p">,</span> <span class="n">something</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="go">  {&#39;cant_results&#39;: 4,</span>
+<span class="go">   &#39;facet_names&#39;: [],</span>
+<span class="go">   &#39;matched_terms&#39;: {&#39;name&#39;: [&#39;tejo&#39;], &#39;sport&#39;: [&#39;tejo&#39;]},</span>
+<span class="go">   &#39;results&#39;: [{&#39;docnum&#39;: 1L,</span>
+<span class="go">                &#39;pk&#39;: u&#39;7&#39;,</span>
+<span class="go">                &#39;rank&#39;: 0,</span>
+<span class="go">                &#39;score&#39;: 5.500610730717037},</span>
+<span class="go">               {&#39;docnum&#39;: 6L,</span>
+<span class="go">                &#39;pk&#39;: u&#39;1&#39;,</span>
+<span class="go">                &#39;rank&#39;: 1,</span>
+<span class="go">                &#39;score&#39;: 5.500610730717037}],</span>
+<span class="go">   &#39;runtime&#39;: 0.0036530494689941406}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-output-dictionary">
+<h2>The output dictionary<a class="headerlink" href="#the-output-dictionary" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">search()</span></code> function returns a dictionary with selected information.</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">cant_results</span></code>: is the total number of documents collected by the searcher.</li>
+<li><code class="docutils literal"><span class="pre">facet_names</span></code>: is useful with the option <code class="docutils literal"><span class="pre">groupedby</span></code>, because it returns the item used to group the results.</li>
+<li><code class="docutils literal"><span class="pre">matched_terms</span></code>: is a dictionary that saves the searcheable field and the match given by the query.</li>
+<li><code class="docutils literal"><span class="pre">runtime</span></code>: how much time the searcher took to find it.</li>
+<li><code class="docutils literal"><span class="pre">results</span></code>: is  a dictionary&#8217;s list for the individual results. i.e. a dictionary for every single result, containing:<ul>
+<li><code class="docutils literal"><span class="pre">rank</span></code>: the position of the result,</li>
+<li><code class="docutils literal"><span class="pre">result</span></code>: indicating the primary key and the correspond value of the item,</li>
+<li><code class="docutils literal"><span class="pre">score</span></code>: the score for the item in the search, and</li>
+<li><code class="docutils literal"><span class="pre">pk</span></code>: the primary key Or the sets of primary keys.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="the-use-dict-option">
+<h2>The <code class="docutils literal"><span class="pre">use_dict</span></code> option<a class="headerlink" href="#the-use-dict-option" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://pypi.python.org/pypi/Flask-PonyWhoosh"><img alt="usedict" src="https://github.com/jonaprieto/ponywhoosh/blob/master/images/use_dict.gif?raw=true" /></a></p>
+<p>If you want that the  items look like a list rather than a dictionary. You can use the option use_dict: this option by default is set True. However if you choose false, results will look something like (&#8216;field&#8217;, &#8216;result&#8217;)</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><p class="logo"><a href="index.html">
+  <img class="logo" src="_static/logo.png" alt="Logo"
+    style="margin-left: -5px"/>
+</a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Searching</a><ul>
+<li><a class="reference internal" href="#your-very-first-time">Your very first time</a></li>
+<li><a class="reference internal" href="#our-search-master-method">Our <code class="docutils literal"><span class="pre">search</span></code> master method</a></li>
+<li><a class="reference internal" href="#ponymodel-pw-index-syntax"><code class="docutils literal"><span class="pre">PonyModel._pw_index_.</span></code> syntax</a></li>
+<li><a class="reference internal" href="#searching-by-field">Searching by field</a></li>
+<li><a class="reference internal" href="#fancy-add-wildcards-and-something-options">Fancy <code class="docutils literal"><span class="pre">add_wildcards</span></code> and <code class="docutils literal"><span class="pre">something</span></code> options</a></li>
+<li><a class="reference internal" href="#the-output-dictionary">The output dictionary</a></li>
+<li><a class="reference internal" href="#the-use-dict-option">The <code class="docutils literal"><span class="pre">use_dict</span></code> option</a></li>
+</ul>
+</li>
+</ul>
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="config.html" title="previous chapter">Getting Started</a></li>
+      <li>Next: <a href="example.html" title="next chapter">A simple example</a></li>
+  </ul></li>
+</ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/quickstart.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright 2015, Jonathan S. Prieto C. & Ivan Felipe Rodriguez.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  
+  </body>
+</html>
