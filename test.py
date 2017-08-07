@@ -35,17 +35,17 @@ class BaseTestCases(object):
       @self.pw.register_model('name', 'age', stored=True, sortable=True)
       class User(self.db.Entity):
         id         = PrimaryKey(int, auto=True)
-        name       = Required(unicode)
+        name       = Required(str)
         age        = Optional(int)
         attributes = Set('Attribute')
 
       @self.pw.register_model('weight', 'sport', 'name', stored=True, sortable=True)
       class Attribute(self.db.Entity):
         id      = PrimaryKey(int, auto=True)
-        name    = Optional(unicode)
+        name    = Optional(str)
         user    = Optional("User")
-        weight  = Required(unicode)
-        sport   = Optional(unicode)
+        weight  = Required(str)
+        sport   = Optional(str)
 
       self.db.bind('sqlite', ':memory:', create_db=True)
       self.db.generate_mapping(create_tables=True)
@@ -54,27 +54,27 @@ class BaseTestCases(object):
 
     @db_session
     def fixtures(self):
-      self.u1 = self.User(name=u'jonathan', age=u'15')
-      self.u2 = self.User(name=u'felipe', age=u'19')
-      self.u3 = self.User(name=u'harol', age=u'16')
-      self.u4 = self.User(name=u'felun', age=u'16')
+      self.u1 = self.User(name='jonathan', age='15')
+      self.u2 = self.User(name='felipe', age='19')
+      self.u3 = self.User(name='harol', age='16')
+      self.u4 = self.User(name='felun', age='16')
       self.a1 = self.Attribute(
-          name=u'felun'
+          name='felun'
         , user=self.u1
-        , weight=u'80'
-        , sport=u'tejo'
+        , weight='80'
+        , sport='tejo'
         )
       self.a2 = self.Attribute(
-          name=u'galun'
+          name='galun'
         , user=self.u2
-        , weight=u'75'
-        , sport=u'lucha de felinas'
+        , weight='75'
+        , sport='lucha de felinas'
         )
       self.a3 = self.Attribute(
-          name=u'ejote'
+          name='ejote'
         , user=self.u3
-        , weight=u'65'
-        , sport=u'futbol shaulin'
+        , weight='65'
+        , sport='futbol shaulin'
         )
 
     def tearDown(self):

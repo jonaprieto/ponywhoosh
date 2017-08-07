@@ -44,9 +44,9 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-roject = u'ponywhoosh'
-copyright = u'2015, Jonathan S. Prieto C. & Ivan Felipe Rodriguez'
-author = u'Jonathan S. Prieto C. & Ivan Felipe Rodriguez'
+roject = 'ponywhoosh'
+copyright = '2015, Jonathan S. Prieto C. & Ivan Felipe Rodriguez'
+author = 'Jonathan S. Prieto C. & Ivan Felipe Rodriguez'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -190,8 +190,8 @@ htmlhelp_basename = 'ponywhooshdoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  (master_doc, 'ponywhoosh.tex', u'ponywhoosh Documentation',
-   u'Jonathan S. Prieto C. \\& Ivan Felipe Rodriguez', 'manual'),
+  (master_doc, 'ponywhoosh.tex', 'ponywhoosh Documentation',
+   'Jonathan S. Prieto C. \\& Ivan Felipe Rodriguez', 'manual'),
 ]
 
 # Documents to append as an appendix to all manuals.
@@ -223,7 +223,7 @@ latex_additional_files = ['flaskstyle.sty', 'logo.pdf']
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'flask-ponywhoosh', u'ponywhoosh Documentation',
+    (master_doc, 'flask-ponywhoosh', 'ponywhoosh Documentation',
      [author], 1)
 ]
 
@@ -233,7 +233,7 @@ intersphinx_mapping = {'http://docs.python.org/': None,
                        'http://flask.pocoo.org/docs/': None}
 pygments_style = 'flask_theme_support.FlaskyStyle'
 texinfo_documents = [
-  (master_doc, 'ponywhoosh', u'ponywhoosh Documentation',
+  (master_doc, 'ponywhoosh', 'ponywhoosh Documentation',
    author, 'ponywhoosh', 'One line description of project.',
    'Miscellaneous'),
 ]
@@ -241,12 +241,12 @@ texinfo_documents = [
 try:
     __import__('flask_theme_support')
 except ImportError as e:
-    print('-' * 74)
+    print(('-' * 74))
     print('Warning: Flask themes unavailable.  Building with default theme')
     print('If you want the Flask themes, run this command and build again:')
     print()
     print('  git submodule update --init')
-    print('-' * 74)
+    print(('-' * 74))
 
     pygments_style = 'tango'
     html_theme = 'default'

@@ -10,6 +10,9 @@
 
 '''
 
+from __future__   import absolute_import
+from __future__   import division
+from __future__   import print_function
 
 import re
 
@@ -27,8 +30,8 @@ class Index(object):
       'limit'    : 0
     , 'optimize' : False
     , 'reverse'  : False
-    , 'scored'   : u''
-    , 'sortedby' : u''
+    , 'scored'   : ''
+    , 'sortedby' : ''
   }
 
   @property
@@ -88,10 +91,10 @@ class Index(object):
   def delete_documents(self):
     """Deletes all the  documents using the  pk associated to them.
     """
-    pk = unicode(self._primary_key)
+    pk = str(self._primary_key)
     for doc in self._whoosh.searcher().documents():
       if pk in doc:
-        doc_pk = unicode(doc[pk])
+        doc_pk = str(doc[pk])
         self._whoosh.delete_by_term(pk, doc_pk)
 
   def optimize(self):
@@ -131,8 +134,8 @@ class Index(object):
       writer = self._whoosh.writer()
       for obj in orm.select(e for e in self._model):
         attrs = {self._primary_key: obj.get_pk()}
-        for f in self._schema_attrs.keys():
-          attrs[f] = unicode(getattr(obj, f))
+        for f in list(self._schema_attrs.keys()):
+          attrs[f] = str(getattr(obj, f))
         writer.add_document(**attrs)
       writer.commit()
 
@@ -169,16 +172,16 @@ class Index(object):
 
     with self._whoosh.searcher() as searcher:
       fields = opt.get('fields', self._schema.names())
-      fields = filter(lambda x: len(x) > 0, fields)
+      fields = [x for x in fields if len(x) > 0]
 
       field = opt.get('field', '')
       if len(field) > 0:
-        if isinstance(field, str) or isinstance(field, unicode):
+        if isinstance(field, str) or isinstance(field, str):
           fields = [field]
         elif isinstance(field, list):
           fields = fields + field
 
-      fields = filter(lambda x: len(x) > 0, fields)
+      fields = [x for x in fields if len(x) > 0]
 
       if len(fields) == 0:
         fields = self._schema.names()
@@ -188,7 +191,7 @@ class Index(object):
         fields = list(fields)
 
       except_fields = opt.get('except_fields', [])
-      except_fields = filter(lambda x: len(x) > 0, except_fields)
+      except_fields = [x for x in except_fields if len(x) > 0]
 
       if len(except_fields) > 0:
         fields = list(set(fields) - set(except_fields))
@@ -209,7 +212,7 @@ class Index(object):
       dic = {
           'runtime'       : results.runtime
         , 'cant_results'  : results.estimated_length()
-        , 'matched_terms' : {k: list(v) for k, v in ma.items()}
+        , 'matched_terms' : {k: list(v) for k, v in list(ma.items())}
         , 'facet_names'   : results.facet_names()
         }
 
@@ -241,7 +244,7 @@ class Index(object):
           ans['model'] = self._name
         value_results[ans['pk']] = ans
 
-      dic["results"] = value_results.values()
+      dic["results"] = list(value_results.values())
       return dic
 
   def prep_search_string(self, search_string, add_wildcards=False):
@@ -261,7 +264,7 @@ class Index(object):
 
     s = search_string.strip()
     try:
-      s = unicode(s)
+      s = str(s)
     except:
       pass
     s = s.replace('*', '')
@@ -270,13 +273,13 @@ class Index(object):
       raise ValueError('Search string must have at least {} characters'
         .format(self._pw.search_string_min_len))
     if add_wildcards:
-      s = u'*{0}*'.format(re.sub('[\s]+', '* *', s))
+      s = '*{0}*'.format(re.sub('[\s]+', '* *', s))
     return s
 
   def to_bool(self, v):
     if isinstance(v, bool):
       return v
-    if isinstance(v, unicode) or isinstance(v, str):
+    if isinstance(v, str) or isinstance(v, str):
       return v == 'True' or v == 'true' or v == 't' or v == 'y' or v == 'yes'
     if isinstance(v, int):
       return bool(v)
@@ -285,17 +288,17 @@ class Index(object):
   def parse_opts_searcher(self, opts, parameters):
     assert isinstance(opts, dict)
     res = {}
-    for k, v in opts.items():
+    for k, v in list(opts.items()):
       if k in parameters:
         typevalue = parameters[k]
         if isinstance(typevalue, int):
           if isinstance(v, list):
               res[k] = v[0]
           res[k] = int(v)
-        elif isinstance(typevalue, unicode):
+        elif isinstance(typevalue, str):
           if isinstance(v, list):
               res[k] = v[0]
-          res[k] = unicode(v)
+          res[k] = str(v)
         elif isinstance(typevalue, bool):
           if isinstance(v, list):
               res[k] = v[0]

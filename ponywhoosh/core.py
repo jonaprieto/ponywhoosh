@@ -10,6 +10,9 @@
 
 '''
 
+from __future__              import absolute_import
+from __future__              import division
+from __future__              import print_function
 
 import os
 import re
@@ -17,7 +20,7 @@ import sys
 import whoosh
 
 from collections             import defaultdict
-from index                   import Index  as PonyWhooshIndex
+from .index                  import Index  as PonyWhooshIndex
 from pony                    import orm
 from pony.orm.serialization  import to_dict
 from pprint                  import pprint
@@ -66,7 +69,7 @@ class PonyWhoosh(object):
     Returns:
         (list): the indexes stored.
     """
-    return [v for k, v in self._indexes.items()]
+    return [v for k, v in list(self._indexes.items())]
 
   def create_index(self, index):
     """Creates and opens index folder for given index.
@@ -127,7 +130,7 @@ class PonyWhoosh(object):
 
       self._entities[index._name]     = model
       index._schema_attrs             = {}
-      index._primary_key_is_composite =  model._pk_is_composite_
+      index._primary_key_is_composite = model._pk_is_composite_
       index._primary_key              = [f.name for f in model._pk_attrs_]
       index._primary_key_type         = 'list'
       type_attribute                  = {}
@@ -164,9 +167,9 @@ class PonyWhoosh(object):
             elif ftype == 'bool':
               fwhoosh = whoosh.fields.BOOLEAN(stored=True)
 
-        type_attribute[fname]       = ftype
-        index._schema_attrs[fname]  = fwhoosh
-        kw["stored"]                = stored
+        type_attribute[fname]      = ftype
+        index._schema_attrs[fname] = fwhoosh
+        kw["stored"]               = stored
 
       index._schema = whoosh.fields.Schema(**index._schema_attrs)
 
@@ -188,16 +191,28 @@ class PonyWhoosh(object):
         dict_obj = obj.to_dict()
 
         def dumps(v):
-          if isinstance(v, int):
+          if sys.version_info[0] < 3:
+            if isinstance(v, int):
+              return unicode(v)
+            if isinstance(v, float):
+              return '%.9f' % v
             return unicode(v)
-          if isinstance(v, float):
-            return '%.9f' % v
-          return unicode(v)
+          else:
+            if isinstance(v, int):
+              return str(v)
+            if isinstance(v, float):
+              return int(float(v))
+            return str(v)
 
         attrs = {}
-        for k, v in dict_obj.iteritems():
-          if k in index._schema_attrs.keys():
-            attrs[k] = dumps(v)
+        if sys.version_info[0] < 3:
+          for k, v in dict_obj.iteritems():
+            if k in index._schema_attrs.keys():
+              attrs[k] = dumps(v)
+        else:
+          for k, v in dict_obj.items():
+            if k in list(index._schema_attrs.keys()):
+              attrs[k] = dumps(v)
 
         if status == 'inserted':
           writer.add_document(**attrs)
@@ -244,16 +259,22 @@ class PonyWhoosh(object):
 
     indexes = self.indexes()
 
-    models = kw.get('models', self._entities.values())
-    models = [self._entities.get(model, None) if isinstance(model, str)
-      or isinstance(model, unicode) else model for model in models]
-    models = filter(lambda x: x is not None, models)
+    models = kw.get('models', list(self._entities.values()))
+    if sys.version_info[0] < 3:
+      models = [self._entities.get(model, None) if isinstance(model, str)
+        or isinstance(model, unicode) else model for model in models]
+      models = filter(lambda x: x is not None, models)
+    else:
+      models = [self._entities.get(model, None) if isinstance(model, str)
+        or isinstance(model, str) else model for model in models]
+      models = [x for x in models if x is not None]
+
 
     if models == [] or not models:
-      models = self._entities.values()
+      models = list(self._entities.values())
 
     if self.debug:
-      print "SEARCHING ON MODELS -> ", models
+      print("SEARCHING ON MODELS -> ", models)
 
     indexes = [m._pw_index_ for m in models if hasattr(m, '_pw_index_')]
 
@@ -272,11 +293,11 @@ class PonyWhoosh(object):
             'items'         : res['results']
           , 'matched_terms' : res['matched_terms']
         }
-        for k, ts in res['matched_terms'].items():
+        for k, ts in list(res['matched_terms'].items()):
           for t in ts:
             ma[k].add(t)
 
     output['cant_results']  = cant
-    output['matched_terms'] = {k: list(v) for k, v in ma.items()}
+    output['matched_terms'] = {k: list(v) for k, v in list(ma.items())}
     output['runtime']       = runtime
     return output
