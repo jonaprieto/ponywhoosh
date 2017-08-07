@@ -10,8 +10,6 @@
 
 '''
 
-
-
 import io
 import os
 import re
@@ -29,7 +27,7 @@ def read(*names, **kwargs):
 
 setup(
     name='ponywhoosh'
-  , version="1.7.5"
+  , version="1.7.6"
   , url='https://github.com/jonaprieto/ponywhoosh'
   , license='MIT'
   , author='Jonathan Prieto-Cubides & Felipe Rodriguez'
