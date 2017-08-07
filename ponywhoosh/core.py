@@ -130,7 +130,7 @@ class PonyWhoosh(object):
 
       self._entities[index._name]     = model
       index._schema_attrs             = {}
-      index._primary_key_is_composite =  model._pk_is_composite_
+      index._primary_key_is_composite = model._pk_is_composite_
       index._primary_key              = [f.name for f in model._pk_attrs_]
       index._primary_key_type         = 'list'
       type_attribute                  = {}
@@ -167,9 +167,9 @@ class PonyWhoosh(object):
             elif ftype == 'bool':
               fwhoosh = whoosh.fields.BOOLEAN(stored=True)
 
-        type_attribute[fname]       = ftype
-        index._schema_attrs[fname]  = fwhoosh
-        kw["stored"]                = stored
+        type_attribute[fname]      = ftype
+        index._schema_attrs[fname] = fwhoosh
+        kw["stored"]               = stored
 
       index._schema = whoosh.fields.Schema(**index._schema_attrs)
 
@@ -191,21 +191,28 @@ class PonyWhoosh(object):
         dict_obj = obj.to_dict()
 
         def dumps(v):
-          if isinstance(v, int):
-            return str(v)
-          if isinstance(v, float):
-            # if sys.version_info[0] < 3:
-              # print("asdfasdfasdf.......")
+          if sys.version_info[0] < 3:
+            if isinstance(v, int):
+              return unicode(v)
+            if isinstance(v, float):
               return '%.9f' % v
-            # else:
-              # print("*********")
-              # return int(float(v))
-          return str(v)
+            return unicode(v)
+          else:
+            if isinstance(v, int):
+              return str(v)
+            if isinstance(v, float):
+              return int(float(v))
+            return str(v)
 
         attrs = {}
-        for k, v in dict_obj.items():
-          if k in list(index._schema_attrs.keys()):
-            attrs[k] = dumps(v)
+        if sys.version_info[0] < 3:
+          for k, v in dict_obj.iteritems():
+            if k in index._schema_attrs.keys():
+              attrs[k] = dumps(v)
+        else:
+          for k, v in dict_obj.items():
+            if k in list(index._schema_attrs.keys()):
+              attrs[k] = dumps(v)
 
         if status == 'inserted':
           writer.add_document(**attrs)
@@ -253,9 +260,15 @@ class PonyWhoosh(object):
     indexes = self.indexes()
 
     models = kw.get('models', list(self._entities.values()))
-    models = [self._entities.get(model, None) if isinstance(model, str)
-      or isinstance(model, str) else model for model in models]
-    models = [x for x in models if x is not None]
+    if sys.version_info[0] < 3:
+      models = [self._entities.get(model, None) if isinstance(model, str)
+        or isinstance(model, unicode) else model for model in models]
+      models = filter(lambda x: x is not None, models)
+    else:
+      models = [self._entities.get(model, None) if isinstance(model, str)
+        or isinstance(model, str) else model for model in models]
+      models = [x for x in models if x is not None]
+
 
     if models == [] or not models:
       models = list(self._entities.values())

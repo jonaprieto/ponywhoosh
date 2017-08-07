@@ -9,10 +9,13 @@
   :license: MIT (see LICENSE.md)
 
 '''
+from __future__              import absolute_import
+from __future__              import division
+from __future__              import print_function
 
-from datetime                   import date
-from pony.orm                   import *
-from ponywhoosh                 import PonyWhoosh
+from datetime                import date
+from pony.orm                import *
+from ponywhoosh              import PonyWhoosh
 
 pw = PonyWhoosh()
 
