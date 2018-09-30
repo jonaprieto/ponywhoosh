@@ -5,7 +5,7 @@
 
   Make your database over PonyORM searchable.
 
-  :copyright: (c) 2015-2017 by Jonathan Prieto-Cubides & Felipe Rodriguez.
+  :copyright: (c) 2015-2018 by Jonathan Prieto-Cubides & Felipe Rodriguez.
   :license: MIT (see LICENSE.md)
 
 '''

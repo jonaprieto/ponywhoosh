@@ -5,7 +5,7 @@
 
   Make your database over PonyORM searchable.
 
-  :copyright: (c) 2015-2017 by Jonathan Prieto-Cubides & Felipe Rodriguez.
+  :copyright: (c) 2015-2018 by Jonathan Prieto-Cubides & Felipe Rodriguez.
   :license: MIT (see LICENSE.md)
 
 '''
@@ -46,19 +46,19 @@ class PonyWhoosh(object):
   """
 
   debug                 = False
-  indexes_path          = "indexes"
+  indexes_path          = None
   search_string_min_len = 2
   writer_timeout        = 4
 
   _indexes              = {}
   _entities             = {}
 
-  def __init__(self, indexes_path=None):
+  # def __init__(self, indexes_path=None):
 
-    if indexes_path is None or indexes_path == "":
-      indexes_path = "indexes"
-    if not os.path.exists(self.indexes_path):
-      os.makedirs(self.indexes_path)
+  #   if indexes_path is None or indexes_path == "":
+  #     indexes_path = "indexes"
+  #   if not os.path.exists(self.indexes_path):
+  #     os.makedirs(self.indexes_path)
 
   def delete_indexes(self):
     """This set to empty all the indexes registered.

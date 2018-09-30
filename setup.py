@@ -5,7 +5,7 @@
 
   Your database now searchable.
 
-  :copyright: (c) 2015-2017 by Jonathan S. Prieto & Ivan Felipe Rodriguez.
+  :copyright: (c) 2015-2018 by Jonathan S. Prieto & Ivan Felipe Rodriguez.
   :license: BSD (see LICENSE.md)
 
 '''
@@ -27,7 +27,7 @@ def read(*names, **kwargs):
 
 setup(
     name='ponywhoosh'
-  , version="1.7.7"
+  , version="1.7.8"
   , url='https://github.com/jonaprieto/ponywhoosh'
   , license='MIT'
   , author='Jonathan Prieto-Cubides & Felipe Rodriguez'

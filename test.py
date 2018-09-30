@@ -5,7 +5,7 @@
 
   Makes your database over PonyORM searchable.
 
-  :copyright: (c) 2015-2017 by Jonathan S. Prieto & Ivan Felipe Rodriguez.
+  :copyright: (c) 2015-2018 by Jonathan S. Prieto & Ivan Felipe Rodriguez.
   :license: BSD (see LICENSE.md)
 
 '''
