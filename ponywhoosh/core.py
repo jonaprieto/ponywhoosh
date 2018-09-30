@@ -46,17 +46,18 @@ class PonyWhoosh(object):
   """
 
   debug                 = False
-  indexes_path          = 'indexes'
+  indexes_path          = None
   search_string_min_len = 2
   writer_timeout        = 2
 
   _indexes              = {}
   _entities             = {}
 
-  def __init__(self):
+  def __init__(self, indexes_path=None):
+    if indexes_path is None:
+      indexes_path = "indexes"
     if not os.path.exists(self.indexes_path):
       os.makedirs(self.indexes_path)
-
 
   def delete_indexes(self):
     """This set to empty all the indexes registered.
