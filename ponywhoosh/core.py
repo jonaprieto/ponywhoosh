@@ -46,15 +46,16 @@ class PonyWhoosh(object):
   """
 
   debug                 = False
-  indexes_path          = None
+  indexes_path          = "indexes"
   search_string_min_len = 2
-  writer_timeout        = 2
+  writer_timeout        = 4
 
   _indexes              = {}
   _entities             = {}
 
   def __init__(self, indexes_path=None):
-    if indexes_path is None:
+
+    if indexes_path is None or indexes_path == "":
       indexes_path = "indexes"
     if not os.path.exists(self.indexes_path):
       os.makedirs(self.indexes_path)

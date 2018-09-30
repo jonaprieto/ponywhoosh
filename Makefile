@@ -39,3 +39,26 @@ default :
 		test-py2
 		make clean
 		test-py3
+
+
+.PHONY: pip-package
+pip-package:
+	rm -Rf dist
+	rm -Rf build
+	python setup.py build
+	python setup.py sdist
+	python setup.py bdist_wheel --universal
+	twine upload dist/*
+
+# pip install twine
+
+.PHONY : deploy 
+deploy : 
+	$(eval VERSION := $(shell bash -c 'read -p "Version: " pwd; echo $$pwd'))
+	echo
+	$(eval MSG := $(shell bash -c 'read -p "Comment: " pwd; echo $$pwd'))
+	git add .
+	git tag v$(VERSION)
+	git commit -am "[ v$(VERSION) ] new version: $(MSG)"
+	make pip-package
+	git push origin master --tags
